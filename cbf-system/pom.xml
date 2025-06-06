@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程 -->
+    <parent>
+        <groupId>com.cbf-framework</groupId>
+        <artifactId>cbf-backend</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>cbf-system</artifactId>
+    <name>cbf-system</name>
+    <description>system系统模块</description>
+
+    <!-- 依赖项 -->
+    <dependencies>
+        <!-- 通用工具模块 -->
+        <dependency>
+            <groupId>com.cbf-framework</groupId>
+            <artifactId>cbf-common</artifactId>
+        </dependency>
+    </dependencies>
+</project>

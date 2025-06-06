@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <!-- 继承父工程 -->
+    <parent>
+        <groupId>com.cbf-framework</groupId>
+        <artifactId>cbf-backend</artifactId>
+        <version>1.0.0</version>
+    </parent>
+
+    <artifactId>cbf-admin</artifactId>
+    <name>cbf-admin</name>
+    <description>web服务入口</description>
+    <packaging>jar</packaging>
+
+    <!-- 依赖项 -->
+    <dependencies>
+
+        <!-- Spring Boot DevTools (可选，开发环境热部署) -->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-devtools</artifactId>
+            <optional>true</optional>
+        </dependency>
+
+        <!-- MySQL 数据库驱动 -->
+        <dependency>
+            <groupId>mysql</groupId>
+            <artifactId>mysql-connector-java</artifactId>
+        </dependency>
+
+        <!-- 核心模块 -->
+        <dependency>
+            <groupId>com.cbf-framework</groupId>
+            <artifactId>cbf-framework</artifactId>
+        </dependency>
+
+        <!-- 定时任务模块 -->
+        <dependency>
+            <groupId>com.cbf-framework</groupId>
+            <artifactId>cbf-quartz</artifactId>
+        </dependency>
+
+        <!-- 代码生成模块 -->
+        <dependency>
+            <groupId>com.cbf-framework</groupId>
+            <artifactId>cbf-generator</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <!-- 插件配置 -->
+    <build>
+        <plugins>
+            <!-- Spring Boot Maven Plugin -->
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <fork>true</fork> <!-- 支持 devtools 热部署 -->
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+</project>
