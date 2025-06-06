@@ -6,6 +6,7 @@ import com.cbf.common.config.CBFConfig;
 import com.cbf.common.constant.Constants;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.http.HttpUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -14,30 +15,24 @@ import org.slf4j.LoggerFactory;
  *
  * @author Frank
  */
-public class AddressUtils
-{
-    private static final Logger log = LoggerFactory.getLogger(AddressUtils.class);
 
+@Slf4j
+public class AddressUtils {
     // IP地址查询
     public static final String IP_URL = "http://whois.pconline.com.cn/ipJson.jsp";
 
     // 未知地址
     public static final String UNKNOWN = "XX XX";
 
-    public static String getRealAddressByIP(String ip)
-    {
+    public static String getRealAddressByIP(String ip) {
         // 内网不查询
-        if (IpUtils.internalIp(ip))
-        {
+        if (IpUtils.internalIp(ip)) {
             return "内网IP";
         }
-        if (CBFConfig.isAddressEnabled())
-        {
-            try
-            {
+        if (CBFConfig.isAddressEnabled()) {
+            try {
                 String rspStr = HttpUtils.sendGet(IP_URL, "ip=" + ip + "&json=true", Constants.GBK);
-                if (StringUtils.isEmpty(rspStr))
-                {
+                if (StringUtils.isEmpty(rspStr)) {
                     log.error("获取地理位置异常 {}", ip);
                     return UNKNOWN;
                 }
@@ -45,9 +40,7 @@ public class AddressUtils
                 String region = obj.getString("pro");
                 String city = obj.getString("city");
                 return String.format("%s %s", region, city);
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 log.error("获取地理位置异常 {}", ip);
             }
         }

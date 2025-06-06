@@ -3,13 +3,13 @@ package com.cbf.web.controller.common;
 import com.cbf.common.config.CBFConfig;
 import com.cbf.common.constant.CacheConstants;
 import com.cbf.common.constant.Constants;
-import com.cbf.common.core.domain.AjaxResult;
+import com.cbf.common.core.domain.ResponseResult;
 import com.cbf.common.core.redis.RedisCache;
 import com.cbf.common.utils.sign.Base64;
 import com.cbf.common.utils.uuid.IdUtils;
+import com.cbf.common.vo.common.CaptchaVo;
 import com.cbf.system.service.ISysConfigService;
 import com.google.code.kaptcha.Producer;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.FastByteArrayOutputStream;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,16 +39,21 @@ public class CaptchaController {
     @Resource
     private ISysConfigService configService;
 
+    @Resource
+    private CBFConfig cbfConfig;
+
     /**
      * 生成验证码
      */
     @GetMapping("/captchaImage")
-    public AjaxResult getCode() {
-        AjaxResult ajax = AjaxResult.success();
+    public ResponseResult<CaptchaVo> getCode() {
+        CaptchaVo captchaVo = new CaptchaVo();
+
+        // 校验是否需要验证码
         boolean captchaEnabled = configService.selectCaptchaEnabled();
-        ajax.put("captchaEnabled", captchaEnabled);
+        captchaVo.setCaptchaEnabled(captchaEnabled);
         if (!captchaEnabled) {
-            return ajax;
+            return ResponseResult.success(captchaVo);
         }
 
         // 保存验证码信息
@@ -60,7 +65,7 @@ public class CaptchaController {
         BufferedImage image = null;
 
         // 生成验证码
-        String captchaType = CBFConfig.getCaptchaType();
+        String captchaType = cbfConfig.getCaptchaType();
         if ("math".equals(captchaType)) {
             String capText = captchaProducerMath.createText();
             capStr = capText.substring(0, capText.lastIndexOf("@"));
@@ -71,17 +76,21 @@ public class CaptchaController {
             image = captchaProducer.createImage(capStr);
         }
 
+        // Store captcha in Redis.
         redisCache.setCacheObject(verifyKey, code, Constants.CAPTCHA_EXPIRATION, TimeUnit.MINUTES);
-        // 转换流信息写出
+
+        // Convert to output stream.
         FastByteArrayOutputStream os = new FastByteArrayOutputStream();
         try {
-            ImageIO.write(image, "jpg", os);
+            if (image != null) {
+                ImageIO.write(image, "jpg", os);
+            }
         } catch (IOException e) {
-            return AjaxResult.error(e.getMessage());
+            return ResponseResult.error(e.getMessage());
         }
 
-        ajax.put("uuid", uuid);
-        ajax.put("img", Base64.encode(os.toByteArray()));
-        return ajax;
+        captchaVo.setUuid(uuid);
+        captchaVo.setImg(Base64.encode(os.toByteArray()));
+        return ResponseResult.success(captchaVo);
     }
 }

@@ -45,7 +45,7 @@ public class CBFConfig {
     /**
      * 验证码类型
      */
-    private static String captchaType;
+    private String captchaType;
 
 
     public static String getProfile() {
@@ -56,35 +56,31 @@ public class CBFConfig {
         return addressEnabled;
     }
 
-    public static String getCaptchaType() {
-        return captchaType;
-    }
-
     /**
      * 获取导入上传路径
      */
     public static String getImportPath() {
-        return profile + "/import";
+        return getProfile() + "/import";
     }
 
     /**
      * 获取头像上传路径
      */
     public static String getAvatarPath() {
-        return profile + "/avatar";
+        return getProfile() + "/avatar";
     }
 
     /**
      * 获取下载路径
      */
     public static String getDownloadPath() {
-        return profile + "/download/";
+        return getProfile() + "/download/";
     }
 
     /**
      * 获取上传路径
      */
     public static String getUploadPath() {
-        return profile + "/upload";
+        return getProfile() + "/upload";
     }
 }

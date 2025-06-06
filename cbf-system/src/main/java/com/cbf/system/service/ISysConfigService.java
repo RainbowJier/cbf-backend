@@ -9,15 +9,14 @@ import java.util.List;
  *
  * @author Frank
  */
-public interface ISysConfigService
-{
+public interface ISysConfigService {
     /**
      * 查询参数配置信息
      *
      * @param configId 参数配置ID
      * @return 参数配置信息
      */
-    public SysConfig selectConfigById(Long configId);
+    SysConfig selectConfigById(Long configId);
 
     /**
      * 根据键名查询参数配置信息

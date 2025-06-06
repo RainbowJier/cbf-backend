@@ -7,7 +7,7 @@
     <!-- Maven 坐标 -->
     <groupId>com.cbf-framework</groupId>
     <artifactId>cbf-backend</artifactId>
-    <version>${cbf.version}</version>
+    <version>1.0.0</version>
     <name>cbf-backend</name>
     <description>通用后台管理系统</description>
     <packaging>pom</packaging>

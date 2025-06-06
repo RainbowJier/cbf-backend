@@ -8,7 +8,6 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 
 import java.io.Serializable;
-import java.util.Objects;
 
 /**
  * @author : Liuqijie
@@ -84,28 +83,5 @@ public class ResponseResult<T> implements Serializable {
 
     public static <T> ResponseResult<T> error(int code, String msg) {
         return new ResponseResult<>(code, msg, null);
-    }
-
-    // ====================== 状态判断方法 ======================
-
-    /**
-     * 是否为成功消息
-     */
-    public boolean isSuccess() {
-        return Objects.equals(HttpStatus.SUCCESS, this.code);
-    }
-
-    /**
-     * 是否为警告消息
-     */
-    public boolean isWarn() {
-        return Objects.equals(HttpStatus.WARN, this.code);
-    }
-
-    /**
-     * 是否为错误消息
-     */
-    public boolean isError() {
-        return Objects.equals(HttpStatus.ERROR, this.code);
     }
 }
