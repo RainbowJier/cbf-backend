@@ -32,7 +32,6 @@
         <druid.version>1.2.23</druid.version>
         <bitwalker.version>1.21</bitwalker.version>
         <kaptcha.version>2.3.3</kaptcha.version>
-        <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <fastjson.version>2.0.57</fastjson.version>
         <oshi.version>6.8.1</oshi.version>
         <commons.io.version>2.19.0</commons.io.version>
@@ -40,8 +39,11 @@
         <velocity.version>2.3</velocity.version>
         <jwt.version>0.9.1</jwt.version>
         <lombok.version>1.18.22</lombok.version>
-        <mybatis-plus.version>3.5.7</mybatis-plus.version>
+        <mybatis-plus.version>3.5.5</mybatis-plus.version>
+        <mybatis.version>3.5.13</mybatis.version>
+        <pagehelper.boot.version>1.4.7</pagehelper.boot.version>
         <hutool.version>5.8.38</hutool.version>
+        <mysql.version>8.0.33</mysql.version>
         <!--        -->
         <spring-security.version>5.7.12</spring-security.version>
         <spring-framework.version>5.3.39</spring-framework.version>
@@ -89,6 +91,20 @@
                 <groupId>eu.bitwalker</groupId>
                 <artifactId>UserAgentUtils</artifactId>
                 <version>${bitwalker.version}</version>
+            </dependency>
+
+            <!-- MyBatis Plus Starter -->
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-boot-starter</artifactId>
+                <version>${mybatis-plus.version}</version>
+            </dependency>
+
+            <!-- 手动锁定 MyBatis 版本，兼容 MyBatis-Plus 和 PageHelper -->
+            <dependency>
+                <groupId>org.mybatis</groupId>
+                <artifactId>mybatis</artifactId>
+                <version>${mybatis.version}</version>
             </dependency>
 
             <!-- PageHelper -->
@@ -154,18 +170,18 @@
                 <version>${lombok.version}</version>
             </dependency>
 
-            <!-- MyBatis Plus Starter -->
-            <dependency>
-                <groupId>com.baomidou</groupId>
-                <artifactId>mybatis-plus-boot-starter</artifactId>
-                <version>${mybatis-plus.version}</version>
-            </dependency>
-
             <!-- Hutool -->
             <dependency>
                 <groupId>cn.hutool</groupId>
                 <artifactId>hutool-all</artifactId>
                 <version>${hutool.version}</version>
+            </dependency>
+
+            <!-- MySQL -->
+            <dependency>
+                <groupId>com.mysql</groupId>
+                <artifactId>mysql-connector-j</artifactId>
+                <version>${mysql.version}</version>
             </dependency>
 
             <!-- 模块依赖 -->

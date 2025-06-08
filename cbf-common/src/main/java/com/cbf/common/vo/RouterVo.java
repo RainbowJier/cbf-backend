@@ -1,4 +1,4 @@
-package com.cbf.system.domain.vo;
+package com.cbf.common.vo;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

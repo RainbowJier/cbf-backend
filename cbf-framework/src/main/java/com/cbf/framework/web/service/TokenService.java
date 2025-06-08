@@ -14,17 +14,17 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
 
 /**
- * token验证处理
+ * Token Verification.
  *
  * @author Frank
  */
@@ -51,25 +51,24 @@ public class TokenService {
 
     private static final Long MILLIS_MINUTE_TWENTY = 20 * 60 * 1000L;
 
-    @Autowired
+    @Resource
     private RedisCache redisCache;
 
     /**
-     * 获取用户身份信息
-     *
-     * @return 用户信息
+     * Get login user info.
      */
     public LoginUser getLoginUser(HttpServletRequest request) {
-        // 获取请求携带的令牌
+        // Get the token from the request header.
         String token = getToken(request);
         if (StringUtils.isNotEmpty(token)) {
             try {
                 Claims claims = parseToken(token);
-                // 解析对应的权限以及用户信息
+                // Parse the permissions and info of current user.
                 String uuid = (String) claims.get(Constants.LOGIN_USER_KEY);
                 String userKey = getTokenKey(uuid);
-                LoginUser user = redisCache.getCacheObject(userKey);
-                return user;
+
+                // Convert json to object Automatically.
+                return redisCache.getCacheObject(userKey);
             } catch (Exception e) {
                 log.error("获取用户信息异常'{}'", e.getMessage());
             }
@@ -182,10 +181,10 @@ public class TokenService {
     }
 
     /**
-     * 从令牌中获取用户名
+     * Get the userName from token.
      *
-     * @param token 令牌
-     * @return 用户名
+     * @param token token
+     * @return user name.
      */
     public String getUsernameFromToken(String token) {
         Claims claims = parseToken(token);
@@ -193,7 +192,7 @@ public class TokenService {
     }
 
     /**
-     * 获取请求token
+     * Get request token.
      *
      * @param request
      * @return token

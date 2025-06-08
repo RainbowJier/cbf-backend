@@ -21,6 +21,11 @@ import com.cbf.common.annotation.Excel;
 #elseif($table.tree)
 #set($Entity="TreeEntity")
 #end
+
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 public class ${ClassName} extends ${Entity}
 {
     private static final long serialVersionUID = 1L;
