@@ -5,8 +5,7 @@ package com.cbf.common.enums;
  *
  * @author Frank
  */
-public enum DataSourceType
-{
+public enum DataSourceType {
     /**
      * 主库
      */

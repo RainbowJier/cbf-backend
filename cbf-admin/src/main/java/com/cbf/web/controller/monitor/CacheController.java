@@ -20,9 +20,6 @@ import java.util.*;
 @RestController
 @RequestMapping("/monitor/cache")
 public class CacheController {
-    @Autowired
-    private RedisTemplate<String, String> redisTemplate;
-
     private final static List<SysCache> caches = new ArrayList<SysCache>();
 
     static {
@@ -34,6 +31,9 @@ public class CacheController {
         caches.add(new SysCache(CacheConstants.RATE_LIMIT_KEY, "限流处理"));
         caches.add(new SysCache(CacheConstants.PWD_ERR_CNT_KEY, "密码错误次数"));
     }
+
+    @Autowired
+    private RedisTemplate<String, String> redisTemplate;
 
     @PreAuthorize("@ss.hasPermi('monitor:cache:list')")
     @GetMapping()

@@ -7,15 +7,14 @@ import java.util.List;
 
 /**
  * 课程管理Service接口
- * 
+ *
  * @author Frank
  * @date 2025-05-31
  */
-public interface ICourseService 
-{
+public interface ICourseService {
     /**
      * 查询课程管理
-     * 
+     *
      * @param id 课程管理主键
      * @return 课程管理
      */
@@ -23,7 +22,7 @@ public interface ICourseService
 
     /**
      * 查询课程管理列表
-     * 
+     *
      * @param course 课程管理
      * @return 课程管理集合
      */
@@ -31,7 +30,7 @@ public interface ICourseService
 
     /**
      * 新增课程管理
-     * 
+     *
      * @param course 课程管理
      * @return 结果
      */
@@ -39,7 +38,7 @@ public interface ICourseService
 
     /**
      * 修改课程管理
-     * 
+     *
      * @param course 课程管理
      * @return 结果
      */
@@ -47,7 +46,7 @@ public interface ICourseService
 
     /**
      * 批量删除课程管理
-     * 
+     *
      * @param ids 需要删除的课程管理主键集合
      * @return 结果
      */
@@ -55,7 +54,7 @@ public interface ICourseService
 
     /**
      * 删除课程管理信息
-     * 
+     *
      * @param id 课程管理主键
      * @return 结果
      */

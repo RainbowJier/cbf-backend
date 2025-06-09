@@ -7,8 +7,6 @@ import com.cbf.common.constant.Constants;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.http.HttpUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 /**
  * 获取地址类

@@ -32,10 +32,9 @@ import java.util.List;
 @RequestMapping("/common")
 public class CommonController {
 
+    private static final String FILE_DELIMETER = ",";
     @Resource
     private ServerConfig serverConfig;
-
-    private static final String FILE_DELIMETER = ",";
 
     /**
      * 通用下载请求

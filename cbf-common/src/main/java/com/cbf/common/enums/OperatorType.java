@@ -5,8 +5,7 @@ package com.cbf.common.enums;
  *
  * @author Frank
  */
-public enum OperatorType
-{
+public enum OperatorType {
     /**
      * 其它
      */

@@ -40,8 +40,7 @@ import java.util.Map;
 @Slf4j
 @RestController
 @RequestMapping("/tool/gen")
-public class GenController extends BaseController
-{
+public class GenController extends BaseController {
     @Autowired
     private IGenTableService genTableService;
 
@@ -53,8 +52,7 @@ public class GenController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:list')")
     @GetMapping("/list")
-    public TableDataInfo genList(GenTable genTable)
-    {
+    public TableDataInfo genList(GenTable genTable) {
         startPage();
         List<GenTable> list = genTableService.selectGenTableList(genTable);
         return getDataTable(list);
@@ -65,8 +63,7 @@ public class GenController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:query')")
     @GetMapping(value = "/{tableId}")
-    public AjaxResult getInfo(@PathVariable Long tableId)
-    {
+    public AjaxResult getInfo(@PathVariable Long tableId) {
         GenTable table = genTableService.selectGenTableById(tableId);
         List<GenTable> tables = genTableService.selectGenTableAll();
         List<GenTableColumn> list = genTableColumnService.selectGenTableColumnListByTableId(tableId);
@@ -82,8 +79,7 @@ public class GenController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:list')")
     @GetMapping("/db/list")
-    public TableDataInfo dataList(GenTable genTable)
-    {
+    public TableDataInfo dataList(GenTable genTable) {
         startPage();
         List<GenTable> list = genTableService.selectDbTableList(genTable);
         return getDataTable(list);
@@ -94,8 +90,7 @@ public class GenController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:list')")
     @GetMapping(value = "/column/{tableId}")
-    public TableDataInfo columnList(Long tableId)
-    {
+    public TableDataInfo columnList(Long tableId) {
         TableDataInfo dataInfo = new TableDataInfo();
         List<GenTableColumn> list = genTableColumnService.selectGenTableColumnListByTableId(tableId);
         dataInfo.setRows(list);
@@ -109,8 +104,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:import')")
     @Log(title = "代码生成", businessType = BusinessType.IMPORT)
     @PostMapping("/importTable")
-    public AjaxResult importTableSave(String tables)
-    {
+    public AjaxResult importTableSave(String tables) {
         String[] tableNames = Convert.toStrArray(tables);
         // 查询表信息
         List<GenTable> tableList = genTableService.selectDbTableListByNames(tableNames);
@@ -124,20 +118,15 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasRole('admin')")
     @Log(title = "创建表", businessType = BusinessType.OTHER)
     @PostMapping("/createTable")
-    public AjaxResult createTableSave(String sql)
-    {
-        try
-        {
+    public AjaxResult createTableSave(String sql) {
+        try {
             SqlUtil.filterKeyword(sql);
             List<SQLStatement> sqlStatements = SQLUtils.parseStatements(sql, DbType.mysql);
             List<String> tableNames = new ArrayList<>();
-            for (SQLStatement sqlStatement : sqlStatements)
-            {
-                if (sqlStatement instanceof MySqlCreateTableStatement)
-                {
+            for (SQLStatement sqlStatement : sqlStatements) {
+                if (sqlStatement instanceof MySqlCreateTableStatement) {
                     MySqlCreateTableStatement createTableStatement = (MySqlCreateTableStatement) sqlStatement;
-                    if (genTableService.createTable(createTableStatement.toString()))
-                    {
+                    if (genTableService.createTable(createTableStatement.toString())) {
                         String tableName = createTableStatement.getTableName().replaceAll("`", "");
                         tableNames.add(tableName);
                     }
@@ -147,9 +136,7 @@ public class GenController extends BaseController
             String operName = SecurityUtils.getUsername();
             genTableService.importGenTable(tableList, operName);
             return AjaxResult.success();
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             log.error(e.getMessage(), e);
             return AjaxResult.error("创建表结构异常");
         }
@@ -161,8 +148,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:edit')")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
     @PutMapping
-    public AjaxResult editSave(@Validated @RequestBody GenTable genTable)
-    {
+    public AjaxResult editSave(@Validated @RequestBody GenTable genTable) {
         genTableService.validateEdit(genTable);
         genTableService.updateGenTable(genTable);
         return success();
@@ -174,8 +160,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:remove')")
     @Log(title = "代码生成", businessType = BusinessType.DELETE)
     @DeleteMapping("/{tableIds}")
-    public AjaxResult remove(@PathVariable Long[] tableIds)
-    {
+    public AjaxResult remove(@PathVariable Long[] tableIds) {
         genTableService.deleteGenTableByIds(tableIds);
         return success();
     }
@@ -185,8 +170,7 @@ public class GenController extends BaseController
      */
     @PreAuthorize("@ss.hasPermi('tool:gen:preview')")
     @GetMapping("/preview/{tableId}")
-    public AjaxResult preview(@PathVariable("tableId") Long tableId) throws IOException
-    {
+    public AjaxResult preview(@PathVariable("tableId") Long tableId) throws IOException {
         Map<String, String> dataMap = genTableService.previewCode(tableId);
         return success(dataMap);
     }
@@ -197,8 +181,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/download/{tableName}")
-    public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException
-    {
+    public void download(HttpServletResponse response, @PathVariable("tableName") String tableName) throws IOException {
         byte[] data = genTableService.downloadCode(tableName);
         genCode(response, data);
     }
@@ -209,10 +192,8 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/genCode/{tableName}")
-    public AjaxResult genCode(@PathVariable("tableName") String tableName)
-    {
-        if (!GenConfig.isAllowOverwrite())
-        {
+    public AjaxResult genCode(@PathVariable("tableName") String tableName) {
+        if (!GenConfig.isAllowOverwrite()) {
             return AjaxResult.error("【系统预设】不允许生成文件覆盖到本地");
         }
         genTableService.generatorCode(tableName);
@@ -225,8 +206,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:edit')")
     @Log(title = "代码生成", businessType = BusinessType.UPDATE)
     @GetMapping("/synchDb/{tableName}")
-    public AjaxResult synchDb(@PathVariable("tableName") String tableName)
-    {
+    public AjaxResult synchDb(@PathVariable("tableName") String tableName) {
         genTableService.synchDb(tableName);
         return success();
     }
@@ -237,8 +217,7 @@ public class GenController extends BaseController
     @PreAuthorize("@ss.hasPermi('tool:gen:code')")
     @Log(title = "代码生成", businessType = BusinessType.GENCODE)
     @GetMapping("/batchGenCode")
-    public void batchGenCode(HttpServletResponse response, String tables) throws IOException
-    {
+    public void batchGenCode(HttpServletResponse response, String tables) throws IOException {
         String[] tableNames = Convert.toStrArray(tables);
         byte[] data = genTableService.downloadCode(tableNames);
         genCode(response, data);
@@ -247,8 +226,7 @@ public class GenController extends BaseController
     /**
      * 生成zip文件
      */
-    private void genCode(HttpServletResponse response, byte[] data) throws IOException
-    {
+    private void genCode(HttpServletResponse response, byte[] data) throws IOException {
         response.reset();
         response.addHeader("Access-Control-Allow-Origin", "*");
         response.addHeader("Access-Control-Expose-Headers", "Content-Disposition");

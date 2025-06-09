@@ -49,11 +49,11 @@ public class CaptchaController {
         AjaxResult ajax = AjaxResult.success();
 
         // 校验是否需要验证码
-       boolean captchaEnabled = configService.selectCaptchaEnabled();
-       ajax.put("captchaEnabled", captchaEnabled);
-       if (!captchaEnabled) {
-           return ajax;
-       }
+        boolean captchaEnabled = configService.selectCaptchaEnabled();
+        ajax.put("captchaEnabled", captchaEnabled);
+        if (!captchaEnabled) {
+            return ajax;
+        }
 
         // 保存验证码信息
         String uuid = IdUtils.simpleUUID();

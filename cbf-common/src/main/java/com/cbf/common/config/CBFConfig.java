@@ -18,30 +18,25 @@ import org.springframework.stereotype.Component;
 @ConfigurationProperties(prefix = "cbf")
 public class CBFConfig {
     /**
-     * 项目名称
-     */
-    private String name;
-
-    /**
-     * 版本
-     */
-    private String version;
-
-    /**
-     * 版权年份
-     */
-    private String copyrightYear;
-
-    /**
      * 上传路径
      */
     private static String profile;
-
     /**
      * 获取地址开关
      */
     private static boolean addressEnabled;
-
+    /**
+     * 项目名称
+     */
+    private String name;
+    /**
+     * 版本
+     */
+    private String version;
+    /**
+     * 版权年份
+     */
+    private String copyrightYear;
     /**
      * 验证码类型
      */

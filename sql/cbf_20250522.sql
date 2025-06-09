@@ -1,6 +1,8 @@
-create database if not exists `cbf_backend_framework` default charset utf8 collate utf8_general_ci;
+create
+database if not exists `cbf_backend_framework` default charset utf8 collate utf8_general_ci;
 
-use cbf_backend_framework;
+use
+cbf_backend_framework;
 
 -- ----------------------------
 -- 1、部门表
@@ -740,9 +742,9 @@ create table sys_oper_log
     oper_time      datetime comment '操作时间',
     cost_time      bigint(20)    default 0 comment '消耗时间',
     primary key (oper_id),
-    key idx_sys_oper_log_bt (business_type),
-    key idx_sys_oper_log_s (status),
-    key idx_sys_oper_log_ot (oper_time)
+    key            idx_sys_oper_log_bt (business_type),
+    key            idx_sys_oper_log_s (status),
+    key            idx_sys_oper_log_ot (oper_time)
 ) engine = innodb
   auto_increment = 100 comment = '操作日志记录';
 
@@ -935,8 +937,8 @@ create table sys_logininfor
     msg            varchar(255) default '' comment '提示消息',
     login_time     datetime comment '访问时间',
     primary key (info_id),
-    key idx_sys_logininfor_s (status),
-    key idx_sys_logininfor_lt (login_time)
+    key            idx_sys_logininfor_s (status),
+    key            idx_sys_logininfor_lt (login_time)
 ) engine = innodb
   auto_increment = 100 comment = '系统访问记录';
 
@@ -1091,17 +1093,40 @@ create table gen_table_column
 -- ----------------------------
 CREATE TABLE IF NOT EXISTS course
 (
-    id           BIGINT PRIMARY KEY AUTO_INCREMENT COMMENT '课程ID',
-    code         VARCHAR(50)    NOT NULL COMMENT '课程编码',
-    subject      VARCHAR(100) COMMENT '课程学科',
-    name         VARCHAR(100)   NOT NULL COMMENT '课程名称',
-    price        DECIMAL(10, 2) NOT NULL DEFAULT 0.00 COMMENT '价格（元）',
-    target_group VARCHAR(100) COMMENT '适用人群',
-    description  TEXT COMMENT '课程介绍',
-    create_time  DATETIME                DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time  DATETIME                DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4 COMMENT ='课程信息表';
+    id
+    BIGINT
+    PRIMARY
+    KEY
+    AUTO_INCREMENT
+    COMMENT
+    '课程ID',
+    code
+    VARCHAR
+(
+    50
+) NOT NULL COMMENT '课程编码',
+    subject VARCHAR
+(
+    100
+) COMMENT '课程学科',
+    name VARCHAR
+(
+    100
+) NOT NULL COMMENT '课程名称',
+    price DECIMAL
+(
+    10,
+    2
+) NOT NULL DEFAULT 0.00 COMMENT '价格（元）',
+    target_group VARCHAR
+(
+    100
+) COMMENT '适用人群',
+    description TEXT COMMENT '课程介绍',
+    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+    ) ENGINE = InnoDB
+    DEFAULT CHARSET = utf8mb4 COMMENT ='课程信息表';
 
 INSERT INTO course (code, subject, name, price, target_group, description)
 VALUES ('cp100001', 'JavaEE', 'JavaSE基础', 199.00, '小白学员', 'JavaSE基础入门课程'),

@@ -1,9 +1,5 @@
 package com.cbf.common.constant;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 /**
  * 任务调度通用常量
  *

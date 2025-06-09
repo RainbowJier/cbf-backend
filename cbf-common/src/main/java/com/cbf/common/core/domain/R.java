@@ -10,18 +10,15 @@ import java.io.Serializable;
  * @author Frank
  */
 public class R<T> implements Serializable {
-    private static final long serialVersionUID = 1L;
-
     /**
      * 成功
      */
     public static final int SUCCESS = HttpStatus.SUCCESS;
-
     /**
      * 失败
      */
     public static final int FAIL = HttpStatus.ERROR;
-
+    private static final long serialVersionUID = 1L;
     private int code;
 
     private String msg;
@@ -68,6 +65,14 @@ public class R<T> implements Serializable {
         return apiResult;
     }
 
+    public static <T> Boolean isError(R<T> ret) {
+        return !isSuccess(ret);
+    }
+
+    public static <T> Boolean isSuccess(R<T> ret) {
+        return R.SUCCESS == ret.getCode();
+    }
+
     public int getCode() {
         return code;
     }
@@ -90,13 +95,5 @@ public class R<T> implements Serializable {
 
     public void setData(T data) {
         this.data = data;
-    }
-
-    public static <T> Boolean isError(R<T> ret) {
-        return !isSuccess(ret);
-    }
-
-    public static <T> Boolean isSuccess(R<T> ret) {
-        return R.SUCCESS == ret.getCode();
     }
 }
