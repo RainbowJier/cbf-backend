@@ -1,8 +1,6 @@
-create
-database if not exists `cbf_backend_framework` default charset utf8 collate utf8_general_ci;
+create database if not exists `cbf_backend_framework` default charset utf8 collate utf8_general_ci;
 
-use
-cbf_backend_framework;
+use cbf_backend_framework;
 
 -- ----------------------------
 -- 1、部门表
@@ -26,7 +24,9 @@ create table sys_dept
     update_time datetime comment '更新时间',
     primary key (dept_id)
 ) engine = innodb
-  auto_increment = 200 comment = '部门表';
+  auto_increment = 200
+    comment
+        = '部门表';
 
 -- ----------------------------
 -- 初始化-部门表数据
@@ -72,7 +72,7 @@ create table sys_user
     nick_name       varchar(30) not null comment '用户昵称',
     user_type       varchar(2)   default '00' comment '用户类型（00系统用户）',
     email           varchar(50)  default '' comment '用户邮箱',
-    phonenumber     varchar(11)  default '' comment '手机号码',
+    phone_number     varchar(11)  default '' comment '手机号码',
     sex             char(1)      default '0' comment '用户性别（0男 1女 2未知）',
     avatar          varchar(100) default '' comment '头像地址',
     password        varchar(100) default '' comment '密码',
@@ -88,7 +88,9 @@ create table sys_user
     remark          varchar(500) default null comment '备注',
     primary key (user_id)
 ) engine = innodb
-  auto_increment = 100 comment = '用户信息表';
+  auto_increment = 100
+    comment
+        = '用户信息表';
 
 -- ----------------------------
 -- 初始化-用户信息表数据
@@ -157,7 +159,9 @@ create table sys_role
     remark              varchar(500) default null comment '备注',
     primary key (role_id)
 ) engine = innodb
-  auto_increment = 100 comment = '角色信息表';
+  auto_increment = 100
+    comment
+        = '角色信息表';
 
 -- ----------------------------
 -- 初始化-角色信息表数据
@@ -196,7 +200,9 @@ create table sys_menu
     remark      varchar(500) default '' comment '备注',
     primary key (menu_id)
 ) engine = innodb
-  auto_increment = 2000 comment = '菜单权限表';
+  auto_increment = 2000
+    comment
+        = '菜单权限表';
 
 -- ----------------------------
 -- 初始化-菜单信息表数据
@@ -742,11 +748,13 @@ create table sys_oper_log
     oper_time      datetime comment '操作时间',
     cost_time      bigint(20)    default 0 comment '消耗时间',
     primary key (oper_id),
-    key            idx_sys_oper_log_bt (business_type),
-    key            idx_sys_oper_log_s (status),
-    key            idx_sys_oper_log_ot (oper_time)
+    key idx_sys_oper_log_bt (business_type),
+    key idx_sys_oper_log_s (status),
+    key idx_sys_oper_log_ot (oper_time)
 ) engine = innodb
-  auto_increment = 100 comment = '操作日志记录';
+  auto_increment = 100
+    comment
+        = '操作日志记录';
 
 
 -- ----------------------------
@@ -767,7 +775,9 @@ create table sys_dict_type
     primary key (dict_id),
     unique (dict_type)
 ) engine = innodb
-  auto_increment = 100 comment = '字典类型表';
+  auto_increment = 100
+    comment
+        = '字典类型表';
 
 insert into sys_dict_type
 values (1, '用户性别', 'sys_user_sex', '0', 'admin', sysdate(), '', null, '用户性别列表');
@@ -813,7 +823,9 @@ create table sys_dict_data
     remark      varchar(500) default null comment '备注',
     primary key (dict_code)
 ) engine = innodb
-  auto_increment = 100 comment = '字典数据表';
+  auto_increment = 100
+    comment
+        = '字典数据表';
 
 insert into sys_dict_data
 values (1, 1, '男', '0', 'sys_user_sex', '', '', 'Y', '0', 'admin', sysdate(), '', null, '性别男');
@@ -893,7 +905,9 @@ create table sys_config
     remark       varchar(500) default null comment '备注',
     primary key (config_id)
 ) engine = innodb
-  auto_increment = 100 comment = '参数配置表';
+  auto_increment = 100
+    comment
+        = '参数配置表';
 
 insert into sys_config
 values (1, '主框架页-默认皮肤样式名称', 'sys.index.skinName', 'skin-blue', 'Y', 'admin', sysdate(), '', null,
@@ -937,10 +951,12 @@ create table sys_logininfor
     msg            varchar(255) default '' comment '提示消息',
     login_time     datetime comment '访问时间',
     primary key (info_id),
-    key            idx_sys_logininfor_s (status),
-    key            idx_sys_logininfor_lt (login_time)
+    key idx_sys_logininfor_s (status),
+    key idx_sys_logininfor_lt (login_time)
 ) engine = innodb
-  auto_increment = 100 comment = '系统访问记录';
+  auto_increment = 100
+    comment
+        = '系统访问记录';
 
 
 -- ----------------------------
@@ -964,7 +980,9 @@ create table sys_job
     remark          varchar(500) default '' comment '备注信息',
     primary key (job_id, job_name, job_group)
 ) engine = innodb
-  auto_increment = 100 comment = '定时任务调度表';
+  auto_increment = 100
+    comment
+        = '定时任务调度表';
 
 insert into sys_job
 values (1, '系统默认（无参）', 'DEFAULT', 'ryTask.ryNoParams', '0/10 * * * * ?', '3', '1', '1', 'admin', sysdate(), '',
@@ -1013,7 +1031,9 @@ create table sys_notice
     remark         varchar(255) default null comment '备注',
     primary key (notice_id)
 ) engine = innodb
-  auto_increment = 10 comment = '通知公告表';
+  auto_increment = 10
+    comment
+        = '通知公告表';
 
 -- ----------------------------
 -- 初始化-公告信息表数据
@@ -1053,7 +1073,9 @@ create table gen_table
     remark            varchar(500) default null comment '备注',
     primary key (table_id)
 ) engine = innodb
-  auto_increment = 1 comment = '代码生成业务表';
+  auto_increment = 1
+    comment
+        = '代码生成业务表';
 
 
 -- ----------------------------
@@ -1086,7 +1108,9 @@ create table gen_table_column
     update_time    datetime comment '更新时间',
     primary key (column_id)
 ) engine = innodb
-  auto_increment = 1 comment = '代码生成业务表字段';
+  auto_increment = 1
+    comment
+        = '代码生成业务表字段';
 
 -- ----------------------------
 -- 20、课程信息表（2025-05-31）
@@ -1094,60 +1118,65 @@ create table gen_table_column
 CREATE TABLE IF NOT EXISTS course
 (
     id
-    BIGINT
-    PRIMARY
-    KEY
-    AUTO_INCREMENT
-    COMMENT
-    '课程ID',
+                 BIGINT
+        PRIMARY
+            KEY
+        AUTO_INCREMENT
+        COMMENT
+            '课程ID',
     code
-    VARCHAR
-(
-    50
-) NOT NULL COMMENT '课程编码',
-    subject VARCHAR
-(
-    100
-) COMMENT '课程学科',
-    name VARCHAR
-(
-    100
-) NOT NULL COMMENT '课程名称',
-    price DECIMAL
-(
-    10,
-    2
-) NOT NULL DEFAULT 0.00 COMMENT '价格（元）',
-    target_group VARCHAR
-(
-    100
-) COMMENT '适用人群',
-    description TEXT COMMENT '课程介绍',
-    create_time DATETIME DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-    ) ENGINE = InnoDB
-    DEFAULT CHARSET = utf8mb4 COMMENT ='课程信息表';
+                 VARCHAR(50)  NOT NULL COMMENT '课程编码',
+    subject      VARCHAR(100) COMMENT '课程学科',
+    name         VARCHAR(100) NOT NULL COMMENT '课程名称',
+    price        DECIMAL(10,
+                     2)       NOT NULL DEFAULT 0.00 COMMENT '价格（元）',
+    target_group VARCHAR(100) COMMENT '适用人群',
+    description  TEXT COMMENT '课程介绍',
+    create_time  DATETIME              DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+    update_time  DATETIME              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
+) ENGINE = InnoDB
+  DEFAULT CHARSET = utf8mb4
+    COMMENT
+        ='课程信息表';
 
 INSERT INTO course (code, subject, name, price, target_group, description)
 VALUES ('cp100001', 'JavaEE', 'JavaSE基础', 199.00, '小白学员', 'JavaSE基础入门课程'),
-       ('cp100002', 'JavaEE', 'JavaWeb开发', 188.00, '初级开发者', 'JavaWeb核心技术讲解'),
-       ('cp100003', 'Python+大数据', 'Python入门', 555.00, '小白学员', '从零开始学Python'),
-       ('cp100004', 'Python+大数据', 'Python数据分析', 288.00, '初级开发者', 'Python与Pandas实战'),
-       ('cp100005', '鸿蒙应用开发', '鸿蒙入门', 99.00, '小白学员', '快速了解鸿蒙开发'),
-       ('cp100006', '鸿蒙应用开发', '鸿蒙商城实战', 59.00, '初级开发者', '完整商城项目开发'),
-       ('cp100007', '前端开发', 'HTML+CSS基础', 49.00, '小白学员', '前端基础快速入门'),
-       ('cp100008', '前端开发', 'JavaScript基础', 69.00, '初级开发者', '掌握JS核心语法'),
-       ('cp100009', '前端开发', 'Vue实战电商', 199.00, '初级开发者', 'Vue+Element商城项目'),
-       ('cp100010', '后端开发', 'Spring Boot入门', 149.00, '初级开发者', '构建REST API项目'),
-       ('cp100011', '后端开发', 'MySQL数据库基础', 89.00, '小白学员', '数据库基础知识讲解'),
-       ('cp100012', '数据结构', '算法初级班', 199.00, '初级开发者', '掌握基本数据结构'),
-       ('cp100013', '人工智能', 'AI导论', 399.00, '感兴趣学员', '人工智能发展与应用'),
-       ('cp100014', '人工智能', '机器学习实战', 699.00, '进阶开发者', 'Sklearn+模型实操'),
-       ('cp100015', '大数据', 'Hadoop基础', 299.00, '初级开发者', '分布式存储与计算'),
-       ('cp100016', '大数据', 'Spark大数据分析', 399.00, '进阶开发者', '实时计算框架入门'),
-       ('cp100017', '移动开发', 'Flutter快速入门', 159.00, '小白学员', '跨平台开发基础'),
-       ('cp100018', '移动开发', 'React Native实战', 179.00, '初级开发者', '构建移动APP'),
-       ('cp100019', '产品经理', 'Axure原型设计', 109.00, '产品新人', 'Axure工具实战入门'),
+       ('cp100002', 'JavaEE', 'JavaWeb开发', 188.00, '初级开发者', 'JavaWeb核心技术讲解')
+        ,
+       ('cp100003', 'Python+大数据', 'Python入门', 555.00, '小白学员', '从零开始学Python')
+        ,
+       ('cp100004', 'Python+大数据', 'Python数据分析', 288.00, '初级开发者', 'Python与Pandas实战')
+        ,
+       ('cp100005', '鸿蒙应用开发', '鸿蒙入门', 99.00, '小白学员', '快速了解鸿蒙开发')
+        ,
+       ('cp100006', '鸿蒙应用开发', '鸿蒙商城实战', 59.00, '初级开发者', '完整商城项目开发')
+        ,
+       ('cp100007', '前端开发', 'HTML+CSS基础', 49.00, '小白学员', '前端基础快速入门')
+        ,
+       ('cp100008', '前端开发', 'JavaScript基础', 69.00, '初级开发者', '掌握JS核心语法')
+        ,
+       ('cp100009', '前端开发', 'Vue实战电商', 199.00, '初级开发者', 'Vue+Element商城项目')
+        ,
+       ('cp100010', '后端开发', 'Spring Boot入门', 149.00, '初级开发者', '构建REST API项目')
+        ,
+       ('cp100011', '后端开发', 'MySQL数据库基础', 89.00, '小白学员', '数据库基础知识讲解')
+        ,
+       ('cp100012', '数据结构', '算法初级班', 199.00, '初级开发者', '掌握基本数据结构')
+        ,
+       ('cp100013', '人工智能', 'AI导论', 399.00, '感兴趣学员', '人工智能发展与应用')
+        ,
+       ('cp100014', '人工智能', '机器学习实战', 699.00, '进阶开发者', 'Sklearn+模型实操')
+        ,
+       ('cp100015', '大数据', 'Hadoop基础', 299.00, '初级开发者', '分布式存储与计算')
+        ,
+       ('cp100016', '大数据', 'Spark大数据分析', 399.00, '进阶开发者', '实时计算框架入门')
+        ,
+       ('cp100017', '移动开发', 'Flutter快速入门', 159.00, '小白学员', '跨平台开发基础')
+        ,
+       ('cp100018', '移动开发', 'React Native实战', 179.00, '初级开发者', '构建移动APP')
+        ,
+       ('cp100019', '产品经理', 'Axure原型设计', 109.00, '产品新人', 'Axure工具实战入门')
+        ,
        ('cp100020', '产品经理', '需求分析与文档编写', 129.00, '产品新人', '从用户到文档的转化');
 
 -- ----------------------------

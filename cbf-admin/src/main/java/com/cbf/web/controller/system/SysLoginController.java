@@ -21,6 +21,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -32,19 +33,19 @@ import java.util.Set;
  */
 @RestController
 public class SysLoginController {
-    @Autowired
+    @Resource
     private SysLoginService loginService;
 
-    @Autowired
+    @Resource
     private ISysMenuService menuService;
 
-    @Autowired
+    @Resource
     private SysPermissionService permissionService;
 
-    @Autowired
+    @Resource
     private TokenService tokenService;
 
-    @Autowired
+    @Resource
     private ISysConfigService configService;
 
     /**

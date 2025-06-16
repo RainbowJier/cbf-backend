@@ -4,6 +4,7 @@ import com.cbf.common.core.domain.model.LoginUser;
 import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.framework.web.service.TokenService;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -34,8 +35,10 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
         // 获取
         LoginUser loginUser = tokenService.getLoginUser(request);
 
-        if (StringUtils.isNotNull(loginUser) && StringUtils.isNull(SecurityUtils.getAuthentication())) {
+        if (StringUtils.isNotNull(loginUser)) {
             tokenService.verifyToken(loginUser);
+            // ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();
+            // threadLocal.set(loginUser);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);
