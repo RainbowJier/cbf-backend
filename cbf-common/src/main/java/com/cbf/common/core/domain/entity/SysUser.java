@@ -138,37 +138,6 @@ public class SysUser extends BaseEntity implements Serializable {
     private Date pwdUpdateDate;
 
     /**
-     * 创建者
-     */
-    @TableField(value = "create_by")
-    private String createBy;
-
-    /**
-     * 创建时间
-     */
-    @TableField(value = "create_time")
-    private Date createTime;
-
-    /**
-     * 更新者
-     */
-    @TableField(value = "update_by")
-    private String updateBy;
-
-    /**
-     * 更新时间
-     */
-    @TableField(value = "update_time")
-    private Date updateTime;
-
-    /**
-     * 备注
-     */
-    @TableField(value = "remark")
-    private String remark;
-
-
-    /**
      * 部门对象
      */
     @Excels({

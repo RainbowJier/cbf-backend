@@ -1,7 +1,14 @@
 package com.cbf.generator.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.cbf.common.core.domain.BaseEntity;
 import com.cbf.common.utils.StringUtils;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 
@@ -10,98 +17,120 @@ import javax.validation.constraints.NotBlank;
  *
  * @author Frank
  */
+
+@AllArgsConstructor
+@NoArgsConstructor
+@TableName(value ="gen_table_column")
 public class GenTableColumn extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
+    @TableId(value = "column_id")
     private Long columnId;
 
     /**
      * 归属表编号
      */
+    @TableField(value = "table_id")
     private Long tableId;
 
     /**
      * 列名称
      */
+    @TableField(value = "column_name")
     private String columnName;
 
     /**
      * 列描述
      */
+    @TableField(value = "column_comment")
     private String columnComment;
 
     /**
      * 列类型
      */
+    @TableField(value = "column_type")
     private String columnType;
 
     /**
      * JAVA类型
      */
+    @TableField(value = "java_type")
     private String javaType;
 
     /**
      * JAVA字段名
      */
     @NotBlank(message = "Java属性不能为空")
+    @TableField(value = "java_field")
     private String javaField;
 
     /**
      * 是否主键（1是）
      */
+    @TableField(value = "is_pk")
     private String isPk;
 
     /**
      * 是否自增（1是）
      */
+    @TableField(value = "is_increment")
     private String isIncrement;
 
     /**
      * 是否必填（1是）
      */
+    @TableField(value = "is_required")
     private String isRequired;
 
     /**
      * 是否为插入字段（1是）
      */
+    @TableField(value = "is_insert")
     private String isInsert;
 
     /**
      * 是否编辑字段（1是）
      */
+    @TableField(value = "is_edit")
     private String isEdit;
 
     /**
      * 是否列表字段（1是）
      */
+    @TableField(value = "is_list")
     private String isList;
 
     /**
      * 是否查询字段（1是）
      */
+    @TableField(value = "is_query")
     private String isQuery;
 
     /**
      * 查询方式（EQ等于、NE不等于、GT大于、LT小于、LIKE模糊、BETWEEN范围）
      */
+    @TableField(value = "query_type")
     private String queryType;
 
     /**
      * 显示类型（input文本框、textarea文本域、select下拉框、checkbox复选框、radio单选框、datetime日期控件、image图片上传控件、upload文件上传控件、editor富文本控件）
      */
+    @TableField(value = "html_type")
     private String htmlType;
 
     /**
      * 字典类型
      */
+    @TableField(value = "dict_type")
     private String dictType;
 
     /**
      * 排序
      */
+    @TableField(value = "sort")
     private Integer sort;
 
     public static boolean isSuperColumn(String javaField) {

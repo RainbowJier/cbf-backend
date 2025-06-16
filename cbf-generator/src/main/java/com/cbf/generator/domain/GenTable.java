@@ -1,5 +1,9 @@
 package com.cbf.generator.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.cbf.common.constant.GenConstants;
 import com.cbf.common.core.domain.BaseEntity;
 import com.cbf.common.utils.StringUtils;
@@ -14,91 +18,113 @@ import java.util.List;
  *
  * @author Frank
  */
+@TableName(value ="gen_table")
 public class GenTable extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     /**
      * 编号
      */
+    @TableId(value = "table_id")
     private Long tableId;
 
     /**
      * 表名称
      */
     @NotBlank(message = "表名称不能为空")
+    @TableField(value = "table_name")
     private String tableName;
 
     /**
      * 表描述
      */
     @NotBlank(message = "表描述不能为空")
+    @TableField(value = "table_comment")
     private String tableComment;
 
     /**
      * 关联父表的表名
      */
+    @TableField(value = "sub_table_name")
     private String subTableName;
 
     /**
      * 本表关联父表的外键名
      */
+    @TableField(value = "sub_table_fk_name")
     private String subTableFkName;
 
     /**
      * 实体类名称(首字母大写)
      */
     @NotBlank(message = "实体类名称不能为空")
+    @TableField(value = "class_name")
     private String className;
 
     /**
      * 使用的模板（crud单表操作 tree树表操作 sub主子表操作）
      */
+    @TableField(value = "tpl_category")
     private String tplCategory;
 
     /**
      * 前端类型（element-ui模版 element-plus模版）
      */
+    @TableField(value = "tpl_web_type")
     private String tplWebType;
 
     /**
      * 生成包路径
      */
     @NotBlank(message = "生成包路径不能为空")
+    @TableField(value = "package_name")
     private String packageName;
 
     /**
      * 生成模块名
      */
     @NotBlank(message = "生成模块名不能为空")
+    @TableField(value = "module_name")
     private String moduleName;
 
     /**
      * 生成业务名
      */
     @NotBlank(message = "生成业务名不能为空")
+    @TableField(value = "business_name")
     private String businessName;
 
     /**
      * 生成功能名
      */
     @NotBlank(message = "生成功能名不能为空")
+    @TableField(value = "function_name")
     private String functionName;
 
     /**
      * 生成作者
      */
     @NotBlank(message = "作者不能为空")
+    @TableField(value = "function_author")
     private String functionAuthor;
 
     /**
      * 生成代码方式（0zip压缩包 1自定义路径）
      */
+    @TableField(value = "gen_type")
     private String genType;
 
     /**
      * 生成路径（不填默认项目路径）
      */
+    @TableField(value = "gen_path")
     private String genPath;
+
+    /**
+     * 其它生成选项
+     */
+    @TableField(value = "options")
+    private String options;
 
     /**
      * 主键信息
@@ -116,10 +142,6 @@ public class GenTable extends BaseEntity {
     @Valid
     private List<GenTableColumn> columns;
 
-    /**
-     * 其它生成选项
-     */
-    private String options;
 
     /**
      * 树编码字段

@@ -1,7 +1,12 @@
 package com.cbf.quartz.domain;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import com.cbf.common.annotation.Excel;
 import com.cbf.common.core.domain.BaseEntity;
+import lombok.Data;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -12,6 +17,9 @@ import java.util.Date;
  *
  * @author Frank
  */
+
+@Data
+@TableName(value ="sys_job_log")
 public class SysJobLog extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
@@ -19,42 +27,49 @@ public class SysJobLog extends BaseEntity {
      * ID
      */
     @Excel(name = "日志序号")
+    @TableId(value = "job_log_id")
     private Long jobLogId;
 
     /**
      * 任务名称
      */
     @Excel(name = "任务名称")
+    @TableField(value = "job_name")
     private String jobName;
 
     /**
      * 任务组名
      */
     @Excel(name = "任务组名")
+    @TableField(value = "job_group")
     private String jobGroup;
 
     /**
      * 调用目标字符串
      */
     @Excel(name = "调用目标字符串")
+    @TableField(value = "invoke_target")
     private String invokeTarget;
 
     /**
      * 日志信息
      */
     @Excel(name = "日志信息")
+    @TableField(value = "job_message")
     private String jobMessage;
 
     /**
      * 执行状态（0正常 1失败）
      */
     @Excel(name = "执行状态", readConverterExp = "0=正常,1=失败")
+    @TableField(value = "status")
     private String status;
 
     /**
      * 异常信息
      */
     @Excel(name = "异常信息")
+    @TableField(value = "exception_info")
     private String exceptionInfo;
 
     /**

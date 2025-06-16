@@ -1,5 +1,6 @@
 package com.cbf.common.core.domain;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -33,28 +34,33 @@ public class BaseEntity implements Serializable {
     /**
      * 创建者
      */
+    @TableField(value = "create_by")
     private String createBy;
 
     /**
      * 创建时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value = "create_time")
     private Date createTime;
 
     /**
      * 更新者
      */
+    @TableField(value = "update_by")
     private String updateBy;
 
     /**
      * 更新时间
      */
     @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    @TableField(value = "update_time")
     private Date updateTime;
 
     /**
      * 备注
      */
+    @TableField(value = "remark")
     private String remark;
 
     /**
