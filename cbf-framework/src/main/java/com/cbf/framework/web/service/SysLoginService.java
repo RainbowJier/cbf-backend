@@ -15,19 +15,12 @@ import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.ip.IpUtils;
 import com.cbf.framework.manager.AsyncManager;
 import com.cbf.framework.manager.factory.AsyncFactory;
-import com.cbf.framework.security.context.AuthenticationContextHolder;
 import com.cbf.system.mapper.SysUserMapper;
 import com.cbf.system.service.ISysConfigService;
 import com.cbf.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
-import org.springframework.util.ObjectUtils;
 
 import javax.annotation.Resource;
 import java.util.Set;
@@ -41,23 +34,17 @@ import java.util.Set;
 @Slf4j
 @Component
 public class SysLoginService {
-    @Autowired
+    @Resource
     private TokenService tokenService;
 
     @Resource
-    private AuthenticationManager authenticationManager;
-
-    @Autowired
     private RedisCache redisCache;
 
-    @Autowired
+    @Resource
     private ISysUserService userService;
 
-    @Autowired
-    private ISysConfigService configService;
-
     @Resource
-    private SysUserMapper sysUserMapper;
+    private ISysConfigService configService;
 
     @Resource
     private SysPermissionService permissionService;
@@ -76,8 +63,7 @@ public class SysLoginService {
      */
     public String login(String userName, String password, String code, String uuid) {
         // 验证码开关
-        boolean captchaEnabled = configService.selectCaptchaEnabled();
-        if (captchaEnabled) {
+        if (configService.selectCaptchaEnabled()) {
             validateCaptcha(userName, code, uuid);
         }
 
@@ -85,7 +71,28 @@ public class SysLoginService {
         loginPreCheck(userName, password);
 
         // 校验账号合法性
+        SysUser sysUser = validateUserStatus(userName);
+
+        // 账号登录
+        passwordService.validate(sysUser, password);
+
+        // 构建用户登录信息
+        LoginUser loginUser = createLoginUser(sysUser);
+
+        // 日志记录
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        recordLoginInfo(sysUser.getUserId());
+
+        // 生成token
+        return tokenService.createToken(loginUser);
+    }
+
+    /**
+     * 校验账号合法性
+     */
+    private SysUser validateUserStatus(String userName) {
         SysUser sysUser = userService.selectUserByUserName(userName);
+
         if (StringUtils.isNull(sysUser)) {
             log.info("登录用户：{} 不存在.", userName);
             throw new ServiceException(MessageUtils.message("user.not.exists"));
@@ -96,20 +103,7 @@ public class SysLoginService {
             log.info("登录用户：{} 已被停用.", userName);
             throw new ServiceException(MessageUtils.message("user.blocked"));
         }
-
-        // 账号登录
-        passwordService.validate(sysUser,password);
-        LoginUser loginUser = createLoginUser(sysUser);
-        if (ObjectUtils.isEmpty(sysUser)) {
-            throw new UserPasswordNotMatchException();
-        }
-
-        // 日志记录
-        AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
-        recordLoginInfo(sysUser.getUserId());
-
-        // 生成token
-        return tokenService.createToken(loginUser);
+        return sysUser;
     }
 
     public LoginUser createLoginUser(SysUser sysUser) {
