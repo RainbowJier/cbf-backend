@@ -22,10 +22,10 @@ import java.util.Set;
 @Component
 public class SysPermissionService {
     @Autowired
-    private ISysRoleService roleService;
+    private ISysRoleService sysRoleService;
 
     @Autowired
-    private ISysMenuService menuService;
+    private ISysMenuService sysMenuService;
 
     /**
      * 获取角色数据权限
@@ -34,12 +34,12 @@ public class SysPermissionService {
      * @return 角色权限信息
      */
     public Set<String> getRolePermission(SysUser user) {
-        Set<String> roles = new HashSet<String>();
+        Set<String> roles = new HashSet<>();
         // 管理员拥有所有权限
         if (user.isAdmin()) {
             roles.add("admin");
         } else {
-            roles.addAll(roleService.selectRolePermissionByUserId(user.getUserId()));
+            roles.addAll(sysRoleService.selectRolePermissionByUserId(user.getUserId()));
         }
         return roles;
     }
@@ -51,7 +51,7 @@ public class SysPermissionService {
      * @return 菜单权限信息
      */
     public Set<String> getMenuPermission(SysUser user) {
-        Set<String> perms = new HashSet<String>();
+        Set<String> perms = new HashSet<>();
         // 管理员拥有所有权限
         if (user.isAdmin()) {
             perms.add("*:*:*");
@@ -61,13 +61,15 @@ public class SysPermissionService {
                 // 多角色设置permissions属性，以便数据权限匹配权限
                 for (SysRole role : roles) {
                     if (StringUtils.equals(role.getStatus(), UserConstants.ROLE_NORMAL) && !role.isAdmin()) {
-                        Set<String> rolePerms = menuService.selectMenuPermsByRoleId(role.getRoleId());
+                        Set<String> rolePerms = sysMenuService.selectMenuPermsByRoleId(role.getRoleId());
                         role.setPermissions(rolePerms);
                         perms.addAll(rolePerms);
                     }
                 }
-            } else {
-                perms.addAll(menuService.selectMenuPermsByUserId(user.getUserId()));
+            }
+            // 当前用户未分配角色
+            else {
+                perms.addAll(sysMenuService.selectMenuPermsByUserId(user.getUserId()));
             }
         }
         return perms;

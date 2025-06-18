@@ -32,13 +32,11 @@ public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        // 获取
+        // 根据token获取登录用户的信息
         LoginUser loginUser = tokenService.getLoginUser(request);
 
         if (StringUtils.isNotNull(loginUser)) {
             tokenService.verifyToken(loginUser);
-            // ThreadLocal<LoginUser> threadLocal = new ThreadLocal<>();
-            // threadLocal.set(loginUser);
             UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(loginUser, null, loginUser.getAuthorities());
             authenticationToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
             SecurityContextHolder.getContext().setAuthentication(authenticationToken);

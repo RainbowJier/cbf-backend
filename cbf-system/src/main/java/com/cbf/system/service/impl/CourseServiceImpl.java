@@ -10,10 +10,10 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 /**
- * 课程管理Service业务层处理
+ * 课程信息Service业务层处理
  *
  * @author Frank
- * @date 2025-05-31
+ * @date 2025-06-18
  */
 @Service
 public class CourseServiceImpl implements ICourseService {
@@ -21,10 +21,10 @@ public class CourseServiceImpl implements ICourseService {
     private CourseMapper courseMapper;
 
     /**
-     * 查询课程管理
+     * 查询课程信息
      *
-     * @param id 课程管理主键
-     * @return 课程管理
+     * @param id 课程信息主键
+     * @return 课程信息
      */
     @Override
     public Course selectCourseById(Long id) {
@@ -32,10 +32,10 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     /**
-     * 查询课程管理列表
+     * 查询课程信息列表
      *
-     * @param course 课程管理
-     * @return 课程管理
+     * @param course 课程信息
+     * @return 课程信息
      */
     @Override
     public List<Course> selectCourseList(Course course) {
@@ -43,9 +43,9 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     /**
-     * 新增课程管理
+     * 新增课程信息
      *
-     * @param course 课程管理
+     * @param course 课程信息
      * @return 结果
      */
     @Override
@@ -55,9 +55,9 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     /**
-     * 修改课程管理
+     * 修改课程信息
      *
-     * @param course 课程管理
+     * @param course 课程信息
      * @return 结果
      */
     @Override
@@ -67,9 +67,9 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     /**
-     * 批量删除课程管理
+     * 批量删除课程信息
      *
-     * @param ids 需要删除的课程管理主键
+     * @param ids 需要删除的课程信息主键
      * @return 结果
      */
     @Override
@@ -78,9 +78,9 @@ public class CourseServiceImpl implements ICourseService {
     }
 
     /**
-     * 删除课程管理信息
+     * 删除课程信息信息
      *
-     * @param id 课程管理主键
+     * @param id 课程信息主键
      * @return 结果
      */
     @Override

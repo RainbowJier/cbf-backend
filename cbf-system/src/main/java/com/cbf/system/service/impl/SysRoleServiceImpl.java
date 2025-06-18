@@ -30,16 +30,16 @@ import java.util.*;
 @Service
 public class SysRoleServiceImpl implements ISysRoleService {
     @Autowired
-    private SysRoleMapper roleMapper;
+    private SysRoleMapper sysRoleMapper;
 
     @Autowired
-    private SysRoleMenuMapper roleMenuMapper;
+    private SysRoleMenuMapper sysRoleMenuMapper;
 
     @Autowired
-    private SysUserRoleMapper userRoleMapper;
+    private SysUserRoleMapper sysUserRoleMapper;
 
     @Autowired
-    private SysRoleDeptMapper roleDeptMapper;
+    private SysRoleDeptMapper sysRoleDeptMapper;
 
     /**
      * 根据条件分页查询角色数据
@@ -50,7 +50,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     @DataScope(deptAlias = "d")
     public List<SysRole> selectRoleList(SysRole role) {
-        return roleMapper.selectRoleList(role);
+        return sysRoleMapper.selectRoleList(role);
     }
 
     /**
@@ -61,7 +61,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public List<SysRole> selectRolesByUserId(Long userId) {
-        List<SysRole> userRoles = roleMapper.selectRolePermissionByUserId(userId);
+        List<SysRole> userRoles = sysRoleMapper.selectRolePermissionByUserId(userId);
         List<SysRole> roles = selectRoleAll();
         for (SysRole role : roles) {
             for (SysRole userRole : userRoles) {
@@ -82,7 +82,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public Set<String> selectRolePermissionByUserId(Long userId) {
-        List<SysRole> perms = roleMapper.selectRolePermissionByUserId(userId);
+
+
+        List<SysRole> perms = sysRoleMapper.selectRolePermissionByUserId(userId);
         Set<String> permsSet = new HashSet<>();
         for (SysRole perm : perms) {
             if (StringUtils.isNotNull(perm)) {
@@ -110,7 +112,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public List<Long> selectRoleListByUserId(Long userId) {
-        return roleMapper.selectRoleListByUserId(userId);
+        return sysRoleMapper.selectRoleListByUserId(userId);
     }
 
     /**
@@ -121,7 +123,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public SysRole selectRoleById(Long roleId) {
-        return roleMapper.selectRoleById(roleId);
+        return sysRoleMapper.selectRoleById(roleId);
     }
 
     /**
@@ -133,7 +135,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public boolean checkRoleNameUnique(SysRole role) {
         Long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
-        SysRole info = roleMapper.checkRoleNameUnique(role.getRoleName());
+        SysRole info = sysRoleMapper.checkRoleNameUnique(role.getRoleName());
         if (StringUtils.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -149,7 +151,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Override
     public boolean checkRoleKeyUnique(SysRole role) {
         Long roleId = StringUtils.isNull(role.getRoleId()) ? -1L : role.getRoleId();
-        SysRole info = roleMapper.checkRoleKeyUnique(role.getRoleKey());
+        SysRole info = sysRoleMapper.checkRoleKeyUnique(role.getRoleKey());
         if (StringUtils.isNotNull(info) && info.getRoleId().longValue() != roleId.longValue()) {
             return UserConstants.NOT_UNIQUE;
         }
@@ -195,7 +197,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public int countUserRoleByRoleId(Long roleId) {
-        return userRoleMapper.countUserRoleByRoleId(roleId);
+        return sysUserRoleMapper.countUserRoleByRoleId(roleId);
     }
 
     /**
@@ -208,7 +210,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Transactional
     public int insertRole(SysRole role) {
         // 新增角色信息
-        roleMapper.insertRole(role);
+        sysRoleMapper.insertRole(role);
         return insertRoleMenu(role);
     }
 
@@ -222,9 +224,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Transactional
     public int updateRole(SysRole role) {
         // 修改角色信息
-        roleMapper.updateRole(role);
+        sysRoleMapper.updateRole(role);
         // 删除角色与菜单关联
-        roleMenuMapper.deleteRoleMenuByRoleId(role.getRoleId());
+        sysRoleMenuMapper.deleteRoleMenuByRoleId(role.getRoleId());
         return insertRoleMenu(role);
     }
 
@@ -236,7 +238,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public int updateRoleStatus(SysRole role) {
-        return roleMapper.updateRole(role);
+        return sysRoleMapper.updateRole(role);
     }
 
     /**
@@ -249,9 +251,9 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Transactional
     public int authDataScope(SysRole role) {
         // 修改角色信息
-        roleMapper.updateRole(role);
+        sysRoleMapper.updateRole(role);
         // 删除角色与部门关联
-        roleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
+        sysRoleDeptMapper.deleteRoleDeptByRoleId(role.getRoleId());
         // 新增角色和部门信息（数据权限）
         return insertRoleDept(role);
     }
@@ -272,7 +274,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
             list.add(rm);
         }
         if (list.size() > 0) {
-            rows = roleMenuMapper.batchRoleMenu(list);
+            rows = sysRoleMenuMapper.batchRoleMenu(list);
         }
         return rows;
     }
@@ -293,7 +295,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
             list.add(rd);
         }
         if (list.size() > 0) {
-            rows = roleDeptMapper.batchRoleDept(list);
+            rows = sysRoleDeptMapper.batchRoleDept(list);
         }
         return rows;
     }
@@ -308,10 +310,10 @@ public class SysRoleServiceImpl implements ISysRoleService {
     @Transactional
     public int deleteRoleById(Long roleId) {
         // 删除角色与菜单关联
-        roleMenuMapper.deleteRoleMenuByRoleId(roleId);
+        sysRoleMenuMapper.deleteRoleMenuByRoleId(roleId);
         // 删除角色与部门关联
-        roleDeptMapper.deleteRoleDeptByRoleId(roleId);
-        return roleMapper.deleteRoleById(roleId);
+        sysRoleDeptMapper.deleteRoleDeptByRoleId(roleId);
+        return sysRoleMapper.deleteRoleById(roleId);
     }
 
     /**
@@ -332,10 +334,10 @@ public class SysRoleServiceImpl implements ISysRoleService {
             }
         }
         // 删除角色与菜单关联
-        roleMenuMapper.deleteRoleMenu(roleIds);
+        sysRoleMenuMapper.deleteRoleMenu(roleIds);
         // 删除角色与部门关联
-        roleDeptMapper.deleteRoleDept(roleIds);
-        return roleMapper.deleteRoleByIds(roleIds);
+        sysRoleDeptMapper.deleteRoleDept(roleIds);
+        return sysRoleMapper.deleteRoleByIds(roleIds);
     }
 
     /**
@@ -346,7 +348,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public int deleteAuthUser(SysUserRole userRole) {
-        return userRoleMapper.deleteUserRoleInfo(userRole);
+        return sysUserRoleMapper.deleteUserRoleInfo(userRole);
     }
 
     /**
@@ -358,7 +360,7 @@ public class SysRoleServiceImpl implements ISysRoleService {
      */
     @Override
     public int deleteAuthUsers(Long roleId, Long[] userIds) {
-        return userRoleMapper.deleteUserRoleInfos(roleId, userIds);
+        return sysUserRoleMapper.deleteUserRoleInfos(roleId, userIds);
     }
 
     /**
@@ -378,6 +380,6 @@ public class SysRoleServiceImpl implements ISysRoleService {
             ur.setRoleId(roleId);
             list.add(ur);
         }
-        return userRoleMapper.batchUserRole(list);
+        return sysUserRoleMapper.batchUserRole(list);
     }
 }

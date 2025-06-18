@@ -66,16 +66,16 @@ public class SysLoginController {
 
     /**
      * 获取用户信息
-     *
-     * @return 用户信息
      */
     @GetMapping("getInfo")
     public AjaxResult getInfo() {
         LoginUser loginUser = SecurityUtils.getLoginUser();
         SysUser user = loginUser.getUser();
+
         // 角色集合
         Set<String> roles = permissionService.getRolePermission(user);
-        // 权限集合
+
+        // 按钮权限集合
         Set<String> permissions = permissionService.getMenuPermission(user);
         if (!loginUser.getPermissions().equals(permissions)) {
             loginUser.setPermissions(permissions);
@@ -92,8 +92,6 @@ public class SysLoginController {
 
     /**
      * 获取路由信息
-     *
-     * @return 路由信息
      */
     @GetMapping("getRouters")
     public AjaxResult getRouters() {

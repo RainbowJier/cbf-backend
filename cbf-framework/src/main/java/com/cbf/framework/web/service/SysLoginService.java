@@ -15,11 +15,16 @@ import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.ip.IpUtils;
 import com.cbf.framework.manager.AsyncManager;
 import com.cbf.framework.manager.factory.AsyncFactory;
+import com.cbf.framework.security.context.AuthenticationContextHolder;
 import com.cbf.system.mapper.SysUserMapper;
 import com.cbf.system.service.ISysConfigService;
 import com.cbf.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.authentication.BadCredentialsException;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
@@ -47,75 +52,46 @@ public class SysLoginService {
     private ISysConfigService configService;
 
     @Resource
-    private SysPermissionService permissionService;
-
-    @Resource
-    private SysPasswordService passwordService;
+    private AuthenticationManager authenticationManager;
 
     /**
      * 登录验证
      *
-     * @param userName 用户名
+     * @param username 用户名
      * @param password 密码
      * @param code     验证码
      * @param uuid     唯一标识
      * @return 结果
      */
-    public String login(String userName, String password, String code, String uuid) {
-        // 验证码开关
-        if (configService.selectCaptchaEnabled()) {
-            validateCaptcha(userName, code, uuid);
+    public String login(String username, String password, String code, String uuid) {
+        // 验证码校验
+        validateCaptcha(username, code, uuid);
+        // 登录前置校验
+        loginPreCheck(username, password);
+        // 用户验证
+        Authentication authentication = null;
+        try {
+            UsernamePasswordAuthenticationToken authenticationToken = new UsernamePasswordAuthenticationToken(username, password);
+            AuthenticationContextHolder.setContext(authenticationToken);
+            // 该方法会去调用 UserDetailsServiceImpl.loadUserByUsername
+            authentication = authenticationManager.authenticate(authenticationToken);
+        } catch (Exception e) {
+            if (e instanceof BadCredentialsException) {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, MessageUtils.message("user.password.not.match")));
+                throw new UserPasswordNotMatchException();
+            } else {
+                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_FAIL, e.getMessage()));
+                throw new ServiceException(e.getMessage());
+            }
+        } finally {
+            AuthenticationContextHolder.clearContext();
         }
-
-        // 登录参数前置校验
-        loginPreCheck(userName, password);
-
-        // 校验账号合法性
-        SysUser sysUser = validateUserStatus(userName);
-
-        // 账号登录
-        passwordService.validate(sysUser, password);
-
-        // 构建用户登录信息
-        LoginUser loginUser = createLoginUser(sysUser);
-
-        // 日志记录
-        AsyncManager.me().execute(AsyncFactory.recordLogininfor(userName, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
-        recordLoginInfo(sysUser.getUserId());
-
+        AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.LOGIN_SUCCESS, MessageUtils.message("user.login.success")));
+        LoginUser loginUser = (LoginUser) authentication.getPrincipal();
+        recordLoginInfo(loginUser.getUserId());
         // 生成token
         return tokenService.createToken(loginUser);
     }
-
-    /**
-     * 校验账号合法性
-     */
-    private SysUser validateUserStatus(String userName) {
-        SysUser sysUser = userService.selectUserByUserName(userName);
-
-        if (StringUtils.isNull(sysUser)) {
-            log.info("登录用户：{} 不存在.", userName);
-            throw new ServiceException(MessageUtils.message("user.not.exists"));
-        } else if (UserStatus.DELETED.getCode().equals(sysUser.getDelFlag())) {
-            log.info("登录用户：{} 已被删除.", userName);
-            throw new ServiceException(MessageUtils.message("user.password.delete"));
-        } else if (UserStatus.DISABLE.getCode().equals(sysUser.getStatus())) {
-            log.info("登录用户：{} 已被停用.", userName);
-            throw new ServiceException(MessageUtils.message("user.blocked"));
-        }
-        return sysUser;
-    }
-
-    public LoginUser createLoginUser(SysUser sysUser) {
-        Set<String> menuPermission = permissionService.getMenuPermission(sysUser);
-        LoginUser loginUser = new LoginUser();
-        loginUser.setUser(sysUser)
-                .setUserId(sysUser.getUserId())
-                .setDeptId(sysUser.getDeptId())
-                .setPermissions(menuPermission);
-        return loginUser;
-    }
-
 
     /**
      * 校验验证码

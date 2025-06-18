@@ -5,92 +5,127 @@
 <mapper namespace="com.cbf.system.mapper.CourseMapper">
 
     <resultMap type="Course" id="CourseResult">
-        <result property="id" column="id"/>
-        <result property="code" column="code"/>
-        <result property="subject" column="subject"/>
-        <result property="name" column="name"/>
-        <result property="price" column="price"/>
-        <result property="targetGroup" column="target_group"/>
-        <result property="description" column="description"/>
-        <result property="createTime" column="create_time"/>
-        <result property="updateTime" column="update_time"/>
+            <result property="id" column="id"/>
+            <result property="code" column="code"/>
+            <result property="subject" column="subject"/>
+            <result property="name" column="name"/>
+            <result property="price" column="price"/>
+            <result property="targetGroup" column="target_group"/>
+            <result property="description" column="description"/>
+            <result property="createTime" column="create_time"/>
+            <result property="updateTime" column="update_time"/>
     </resultMap>
 
     <sql id="selectCourseVo">
-        select id,
-               code,
-               subject,
-               name,
-               price,
-               target_group,
-               description,
-               create_time,
-               update_time
+        select id, code, subject, name, price, target_group, description, create_time, update_time
         from course
     </sql>
 
     <select id="selectCourseList" parameterType="Course" resultMap="CourseResult">
         <include refid="selectCourseVo"/>
         <where>
-            <if test="code != null  and code != ''">and code = #{code}</if>
-            <if test="subject != null  and subject != ''">and subject = #{subject}</if>
-            <if test="name != null  and name != ''">and name like concat('%', #{name}, '%')</if>
-            <if test="price != null ">and price = #{price}</if>
-            <if test="targetGroup != null  and targetGroup != ''">and target_group = #{targetGroup}</if>
-            <if test="description != null  and description != ''">and description = #{description}</if>
-            <if test="createTime != null ">and create_time = #{createTime}</if>
-            <if test="updateTime != null ">and update_time = #{updateTime}</if>
+                        <if test="code != null  and code != ''">
+                            and code = #{code}
+                        </if>
+                        <if test="subject != null  and subject != ''">
+                            and subject = #{subject}
+                        </if>
+                        <if test="name != null  and name != ''">
+                            and name like concat('%', #{name}, '%')
+                        </if>
+                        <if test="price != null ">
+                            and price = #{price}
+                        </if>
+                        <if test="targetGroup != null  and targetGroup != ''">
+                            and target_group = #{targetGroup}
+                        </if>
+                        <if test="description != null  and description != ''">
+                            and description = #{description}
+                        </if>
         </where>
     </select>
 
-    <select id="selectCourseById" parameterType="Long" resultMap="CourseResult">
-        <include refid="selectCourseVo"/>
-        where id = #{id}
+    <select id="selectCourseById" parameterType="Long"
+            resultMap="CourseResult">
+            <include refid="selectCourseVo"/>
+            where id = #{id}
     </select>
 
-    <insert id="insertCourse" parameterType="Course" useGeneratedKeys="true" keyProperty="id">
+    <insert id="insertCourse" parameterType="Course" useGeneratedKeys="true"
+            keyProperty="id">
         insert into course
         <trim prefix="(" suffix=")" suffixOverrides=",">
-            <if test="code != null and code != ''">code,</if>
-            <if test="subject != null and subject != ''">subject,</if>
-            <if test="name != null and name != ''">name,</if>
-            <if test="price != null">price,</if>
-            <if test="targetGroup != null and targetGroup != ''">target_group,</if>
-            <if test="description != null and description != ''">description,</if>
-            <if test="createTime != null">create_time,</if>
-            <if test="updateTime != null">update_time,</if>
+                    <if test="code != null and code != ''">code,
+                    </if>
+                    <if test="subject != null">subject,
+                    </if>
+                    <if test="name != null and name != ''">name,
+                    </if>
+                    <if test="price != null">price,
+                    </if>
+                    <if test="targetGroup != null">target_group,
+                    </if>
+                    <if test="description != null">description,
+                    </if>
+                    <if test="createTime != null">create_time,
+                    </if>
+                    <if test="updateTime != null">update_time,
+                    </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-            <if test="code != null and code != ''">#{code},</if>
-            <if test="subject != null and subject != ''">#{subject},</if>
-            <if test="name != null and name != ''">#{name},</if>
-            <if test="price != null">#{price},</if>
-            <if test="targetGroup != null and targetGroup != ''">#{targetGroup},</if>
-            <if test="description != null and description != ''">#{description},</if>
-            <if test="createTime != null">#{createTime},</if>
-            <if test="updateTime != null">#{updateTime},</if>
+                    <if test="code != null and code != ''">#{code},
+                    </if>
+                    <if test="subject != null">#{subject},
+                    </if>
+                    <if test="name != null and name != ''">#{name},
+                    </if>
+                    <if test="price != null">#{price},
+                    </if>
+                    <if test="targetGroup != null">#{targetGroup},
+                    </if>
+                    <if test="description != null">#{description},
+                    </if>
+                    <if test="createTime != null">#{createTime},
+                    </if>
+                    <if test="updateTime != null">#{updateTime},
+                    </if>
         </trim>
     </insert>
 
     <update id="updateCourse" parameterType="Course">
         update course
         <trim prefix="SET" suffixOverrides=",">
-            <if test="code != null and code != ''">code = #{code},</if>
-            <if test="subject != null and subject != ''">subject = #{subject},</if>
-            <if test="name != null and name != ''">name = #{name},</if>
-            <if test="price != null">price = #{price},</if>
-            <if test="targetGroup != null and targetGroup != ''">target_group = #{targetGroup},</if>
-            <if test="description != null and description != ''">description = #{description},</if>
-            <if test="createTime != null">create_time = #{createTime},</if>
-            <if test="updateTime != null">update_time = #{updateTime},</if>
+                    <if test="code != null and code != ''">code =
+                        #{code},
+                    </if>
+                    <if test="subject != null">subject =
+                        #{subject},
+                    </if>
+                    <if test="name != null and name != ''">name =
+                        #{name},
+                    </if>
+                    <if test="price != null">price =
+                        #{price},
+                    </if>
+                    <if test="targetGroup != null">target_group =
+                        #{targetGroup},
+                    </if>
+                    <if test="description != null">description =
+                        #{description},
+                    </if>
+                    <if test="createTime != null">create_time =
+                        #{createTime},
+                    </if>
+                    <if test="updateTime != null">update_time =
+                        #{updateTime},
+                    </if>
         </trim>
         where id = #{id}
     </update>
 
     <delete id="deleteCourseById" parameterType="Long">
         delete
-        from course
-        where id = #{id}
+        from course where id = #{id}
     </delete>
 
     <delete id="deleteCourseByIds" parameterType="String">

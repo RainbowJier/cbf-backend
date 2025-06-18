@@ -82,6 +82,18 @@ public class LoginUser implements UserDetails {
      */
     private SysUser user;
 
+    public LoginUser(SysUser user, Set<String> permissions) {
+        this.user = user;
+        this.permissions = permissions;
+    }
+
+    public LoginUser(Long userId, Long deptId, SysUser user, Set<String> permissions) {
+        this.userId = userId;
+        this.deptId = deptId;
+        this.user = user;
+        this.permissions = permissions;
+    }
+
     @JSONField(serialize = false)
     @Override
     public String getPassword() {

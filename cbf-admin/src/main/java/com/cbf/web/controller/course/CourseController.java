@@ -8,27 +8,28 @@ import com.cbf.common.enums.BusinessType;
 import com.cbf.common.utils.poi.ExcelUtil;
 import com.cbf.system.domain.Course;
 import com.cbf.system.service.ICourseService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * 课程管理Controller
+ * 课程信息Controller
  *
  * @author Frank
- * @date 2025-05-31
+ * @date 2025-06-18
  */
 @RestController
 @RequestMapping("/course/course")
 public class CourseController extends BaseController {
-    @Autowired
+    @Resource
     private ICourseService courseService;
 
     /**
-     * 查询课程管理列表
+     * 查询课程信息列表
+     * 更细粒度的权限拦截
      */
     @PreAuthorize("@ss.hasPermi('course:course:list')")
     @GetMapping("/list")
@@ -39,19 +40,19 @@ public class CourseController extends BaseController {
     }
 
     /**
-     * 导出课程管理列表
+     * 导出课程信息列表
      */
     @PreAuthorize("@ss.hasPermi('course:course:export')")
-    @Log(title = "课程管理", businessType = BusinessType.EXPORT)
+    @Log(title = "课程信息", businessType = BusinessType.EXPORT)
     @PostMapping("/export")
     public void export(HttpServletResponse response, Course course) {
         List<Course> list = courseService.selectCourseList(course);
-        ExcelUtil<Course> util = new ExcelUtil<>(Course.class);
-        util.exportExcel(response, list, "课程管理数据");
+        ExcelUtil<Course> util = new ExcelUtil<Course>(Course.class);
+        util.exportExcel(response, list, "课程信息数据");
     }
 
     /**
-     * 获取课程管理详细信息
+     * 获取课程信息详细信息
      */
     @PreAuthorize("@ss.hasPermi('course:course:query')")
     @GetMapping(value = "/{id}")
@@ -60,30 +61,30 @@ public class CourseController extends BaseController {
     }
 
     /**
-     * 新增课程管理
+     * 新增课程信息
      */
     @PreAuthorize("@ss.hasPermi('course:course:add')")
-    @Log(title = "课程管理", businessType = BusinessType.INSERT)
+    @Log(title = "课程信息", businessType = BusinessType.INSERT)
     @PostMapping
     public AjaxResult add(@RequestBody Course course) {
         return toAjax(courseService.insertCourse(course));
     }
 
     /**
-     * 修改课程管理
+     * 修改课程信息
      */
     @PreAuthorize("@ss.hasPermi('course:course:edit')")
-    @Log(title = "课程管理", businessType = BusinessType.UPDATE)
+    @Log(title = "课程信息", businessType = BusinessType.UPDATE)
     @PutMapping
     public AjaxResult edit(@RequestBody Course course) {
         return toAjax(courseService.updateCourse(course));
     }
 
     /**
-     * 删除课程管理
+     * 删除课程信息
      */
     @PreAuthorize("@ss.hasPermi('course:course:remove')")
-    @Log(title = "课程管理", businessType = BusinessType.DELETE)
+    @Log(title = "课程信息", businessType = BusinessType.DELETE)
     @DeleteMapping("/{ids}")
     public AjaxResult remove(@PathVariable Long[] ids) {
         return toAjax(courseService.deleteCourseByIds(ids));

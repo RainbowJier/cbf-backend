@@ -44,8 +44,6 @@ public class BaseController {
         });
     }
 
-    // todo：自动获取userId
-
     /**
      * 设置请求分页数据
      */

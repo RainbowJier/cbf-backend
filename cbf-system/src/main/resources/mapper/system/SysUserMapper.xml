@@ -126,7 +126,7 @@
         <if test="userName != null and userName != ''">
             AND u.user_name like concat('%', #{userName}, '%')
         </if>
-        <if test="phone_number != null and phone_number != ''">
+        <if test="phoneNumber != null and phoneNumber != ''">
             AND u.phone_number like concat('%', #{phone_number}, '%')
         </if>
         <!-- 数据范围过滤 -->
@@ -145,7 +145,7 @@
         <if test="userName != null and userName != ''">
             AND u.user_name like concat('%', #{userName}, '%')
         </if>
-        <if test="phone_number != null and phone_number != ''">
+        <if test="phoneNumber != null and phoneNumber != ''">
             AND u.phone_number like concat('%', #{phone_number}, '%')
         </if>
         <!-- 数据范围过滤 -->
@@ -191,7 +191,7 @@
         <if test="nickName != null and nickName != ''">nick_name,</if>
         <if test="email != null and email != ''">email,</if>
         <if test="avatar != null and avatar != ''">avatar,</if>
-        <if test="phone_number != null and phone_number != ''">phone_number,</if>
+        <if test="phoneNumber != null and phoneNumber != ''">phone_number,</if>
         <if test="sex != null and sex != ''">sex,</if>
         <if test="password != null and password != ''">password,</if>
         <if test="status != null and status != ''">status,</if>
@@ -206,7 +206,7 @@
         <if test="nickName != null and nickName != ''">#{nickName},</if>
         <if test="email != null and email != ''">#{email},</if>
         <if test="avatar != null and avatar != ''">#{avatar},</if>
-        <if test="phone_number != null and phone_number != ''">#{phone_number},</if>
+        <if test="phoneNumber != null and phoneNumber != ''">#{phoneNumber},</if>
         <if test="sex != null and sex != ''">#{sex},</if>
         <if test="password != null and password != ''">#{password},</if>
         <if test="status != null and status != ''">#{status},</if>
