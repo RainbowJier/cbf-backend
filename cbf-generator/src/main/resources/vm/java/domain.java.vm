@@ -31,9 +31,6 @@ import com.bsd.common.core.domain.TreeEntity;
 @Data
 @TableName("${tableName}")
 public class ${ClassName} extends ${Entity} {
-
-private static final long serialVersionUID = 1L;
-
     #foreach ($column in $columns)
         #if(!$table.isSuperColumn($column.javaField))
         /** $column.columnComment */
@@ -54,7 +51,9 @@ private static final long serialVersionUID = 1L;
                 #end
             #end
             #if($column.javaField == 'id')
-            @TableId(type = IdType.AUTO)
+            @TableId
+            #else
+            @TableField(value = "$column.columnName")
             #end
         private $column.javaType $column.javaField;
 
