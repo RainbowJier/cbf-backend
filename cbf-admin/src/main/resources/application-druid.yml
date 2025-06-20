@@ -8,7 +8,7 @@ spring:
       master:
         url: jdbc:mysql://123.249.98.26:3306/cbf_backend_framework?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: ENC:Q0bikiSGrHr0sBLiApZ7Ag==
+        password: ENC(Q0bikiSGrHr0sBLiApZ7Ag==)
       # 从库数据源
       slave:
         # 从数据源开关/默认关闭

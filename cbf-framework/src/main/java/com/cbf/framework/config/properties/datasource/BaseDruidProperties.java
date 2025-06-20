@@ -18,6 +18,7 @@ public class BaseDruidProperties {
     private String url;
     private String username;
     private String password;
+
     @Value("${spring.datasource.druid.initialSize}")
     private int initialSize;
 
@@ -50,8 +51,9 @@ public class BaseDruidProperties {
         // connection properties.
         dataSource.setUrl(url);
         dataSource.setUsername(username);
-        if(password != null){
-            password = Aes.decrypt(password.replace("ENC:", ""));
+        if (password.startsWith("ENC(") && password.endsWith(")")) {
+            password = password.substring(4, password.length() - 1);
+            password = Aes.decrypt(password);
         }
         dataSource.setPassword(password);
 

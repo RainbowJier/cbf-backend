@@ -28,7 +28,7 @@ public class Aes {
     }
 
     public static void main(String[] args) throws Exception {
-        String encrypted = encrypt("cbf_mysql");
+        String encrypted = encrypt("cbf_redis");
         System.out.println("Encrypted password: " + encrypted);
     }
 }
