@@ -1,6 +1,7 @@
-package com.cbf.system.mapper;
+package com.example.blog.mapper;
 
-import com.cbf.system.domain.Course;
+
+import com.example.blog.domain.Course;
 
 import java.util.List;
 

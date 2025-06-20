@@ -1,9 +1,9 @@
-package com.cbf.system.service.impl;
+package com.example.blog.service.impl;
 
 import com.cbf.common.utils.DateUtils;
-import com.cbf.system.domain.Course;
-import com.cbf.system.mapper.CourseMapper;
-import com.cbf.system.service.ICourseService;
+import com.example.blog.domain.Course;
+import com.example.blog.mapper.CourseMapper;
+import com.example.blog.service.ICourseService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

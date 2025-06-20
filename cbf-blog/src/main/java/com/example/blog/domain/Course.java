@@ -1,12 +1,10 @@
-package com.cbf.system.domain;
-
+package com.example.blog.domain;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.cbf.common.annotation.Excel;
 import com.cbf.common.core.domain.BaseEntity;
 import lombok.AllArgsConstructor;
 import lombok.Data;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
 
 import java.math.BigDecimal;
 
@@ -26,42 +24,43 @@ public class Course extends BaseEntity {
     /**
      * 课程ID
      */
+    @TableId(value = "id")
     private Long id;
 
     /**
      * 课程编码
      */
-    @Excel(name = "课程编码")
+    @ExcelProperty("课程编码")
     private String code;
 
     /**
      * 课程学科
      */
-    @Excel(name = "课程学科")
+    @ExcelProperty("课程学科")
     private String subject;
 
     /**
      * 课程名称
      */
-    @Excel(name = "课程名称")
+    @ExcelProperty("课程名称")
     private String name;
 
     /**
      * 价格（元）
      */
-    @Excel(name = "价格", readConverterExp = "元=")
+    @ExcelProperty("价格")
     private BigDecimal price;
 
     /**
      * 适用人群
      */
-    @Excel(name = "适用人群")
+    @ExcelProperty("适用人群")
     private String targetGroup;
 
     /**
      * 课程介绍
      */
-    @Excel(name = "课程介绍")
+    @ExcelProperty("课程介绍")
     private String description;
 
 }

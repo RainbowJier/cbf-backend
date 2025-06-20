@@ -1,6 +1,7 @@
-package com.cbf.system.service;
+package com.example.blog.service;
 
-import com.cbf.system.domain.Course;
+
+import com.example.blog.domain.Course;
 
 import java.util.List;
 

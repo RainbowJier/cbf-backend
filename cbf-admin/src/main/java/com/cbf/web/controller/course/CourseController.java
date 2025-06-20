@@ -5,9 +5,10 @@ import com.cbf.common.core.controller.BaseController;
 import com.cbf.common.core.domain.AjaxResult;
 import com.cbf.common.core.page.TableDataInfo;
 import com.cbf.common.enums.BusinessType;
-import com.cbf.common.utils.poi.ExcelUtil;
-import com.cbf.system.domain.Course;
-import com.cbf.system.service.ICourseService;
+import com.cbf.common.utils.easyexcel.ExcelExportUtil;
+import com.cbf.common.utils.easyexcel.handler.AdvancedStyleHandler;
+import com.example.blog.domain.Course;
+import com.example.blog.service.ICourseService;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.List;
 
 /**
- * 课程信息Controller
+ * 课程信息
  *
  * @author Frank
  * @date 2025-06-18
@@ -29,7 +30,6 @@ public class CourseController extends BaseController {
 
     /**
      * 查询课程信息列表
-     * 更细粒度的权限拦截
      */
     @PreAuthorize("@ss.hasPermi('course:course:list')")
     @GetMapping("/list")
@@ -47,8 +47,14 @@ public class CourseController extends BaseController {
     @PostMapping("/export")
     public void export(HttpServletResponse response, Course course) {
         List<Course> list = courseService.selectCourseList(course);
-        ExcelUtil<Course> util = new ExcelUtil<Course>(Course.class);
-        util.exportExcel(response, list, "课程信息数据");
+        ExcelExportUtil.export(
+                response,
+                list,
+                Course.class,
+                "课程信息导出",
+                "课程信息",
+                List.of(new AdvancedStyleHandler())
+        );
     }
 
     /**

@@ -11,13 +11,12 @@
         <version>1.0.0</version>
     </parent>
 
-    <artifactId>cbf-system</artifactId>
-    <name>cbf-system</name>
-    <description>system系统模块</description>
+    <artifactId>cbf-blog</artifactId>
+    <name>cbf-blog</name>
+    <description>blog系统模块</description>
 
     <!-- 依赖项 -->
     <dependencies>
-        <!-- 通用工具模块 -->
         <dependency>
             <groupId>com.cbf</groupId>
             <artifactId>cbf-common</artifactId>

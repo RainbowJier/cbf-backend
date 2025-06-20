@@ -6,7 +6,7 @@
 
     <!-- 继承父工程 -->
     <parent>
-        <groupId>com.cbf-framework</groupId>
+        <groupId>com.cbf</groupId>
         <artifactId>cbf-backend</artifactId>
         <version>1.0.0</version>
     </parent>
@@ -56,9 +56,14 @@
 
         <!-- 系统模块 -->
         <dependency>
-            <groupId>com.cbf-framework</groupId>
+            <groupId>com.cbf</groupId>
             <artifactId>cbf-system</artifactId>
         </dependency>
 
+        <!-- 系统模块 -->
+        <dependency>
+            <groupId>com.cbf</groupId>
+            <artifactId>cbf-blog</artifactId>
+        </dependency>
     </dependencies>
 </project>

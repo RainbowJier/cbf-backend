@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <!-- Maven 坐标 -->
-    <groupId>com.cbf-framework</groupId>
+    <groupId>com.cbf</groupId>
     <artifactId>cbf-backend</artifactId>
     <version>1.0.0</version>
     <name>cbf-backend</name>
@@ -20,6 +20,7 @@
         <module>cbf-quartz</module>
         <module>cbf-generator</module>
         <module>cbf-common</module>
+        <module>cbf-blog</module>
     </modules>
 
     <!-- 属性配置 -->
@@ -45,6 +46,7 @@
         <hutool.version>5.8.26</hutool.version>
         <mysql.version>8.0.33</mysql.version>
         <sa-token.version>1.44.0</sa-token.version>
+        <easyexcel.version>3.3.2</easyexcel.version>
         <!--        -->
         <spring-security.version>5.7.12</spring-security.version>
         <spring-framework.version>5.3.39</spring-framework.version>
@@ -192,31 +194,43 @@
                 <version>${sa-token.version}</version>
             </dependency>
 
+            <!-- easyexcel -->
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>easyexcel</artifactId>
+                <version>${easyexcel.version}</version>
+            </dependency>
+
 
             <!-- 模块依赖 -->
             <dependency>
-                <groupId>com.cbf-framework</groupId>
+                <groupId>com.cbf</groupId>
                 <artifactId>cbf-quartz</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.cbf-framework</groupId>
+                <groupId>com.cbf</groupId>
                 <artifactId>cbf-generator</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.cbf-framework</groupId>
+                <groupId>com.cbf</groupId>
                 <artifactId>cbf-framework</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.cbf-framework</groupId>
+                <groupId>com.cbf</groupId>
                 <artifactId>cbf-system</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
             <dependency>
-                <groupId>com.cbf-framework</groupId>
+                <groupId>com.cbf</groupId>
                 <artifactId>cbf-common</artifactId>
+                <version>${cbf.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.cbf</groupId>
+                <artifactId>cbf-blog</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
         </dependencies>
