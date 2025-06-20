@@ -1,15 +1,14 @@
 package com.cbf.framework.config;
 
-import com.alibaba.druid.pool.DruidDataSource;
-import com.alibaba.druid.spring.boot.autoconfigure.DruidDataSourceBuilder;
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
 import com.cbf.common.enums.DataSourceType;
 import com.cbf.common.utils.spring.SpringUtils;
-import com.cbf.framework.config.properties.DruidProperties;
+import com.cbf.framework.config.properties.datasource.MasterDruidProperties;
+import com.cbf.framework.config.properties.datasource.SlaveDruidProperties;
 import com.cbf.framework.datasource.DynamicDataSource;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;
-import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.web.servlet.FilterRegistrationBean;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,45 +25,55 @@ import java.util.Map;
  *
  * @author Frank
  */
+@Slf4j
 @Configuration
 public class DruidConfig {
+    /**
+     * master data source
+     *
+     * @param properties master data source properties
+     * @return DataSource
+     */
     @Bean
-    @ConfigurationProperties("spring.datasource.druid.master")
-    public DataSource masterDataSource(DruidProperties druidProperties) {
-        DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-        return druidProperties.dataSource(dataSource);
+    public DataSource masterDataSource(MasterDruidProperties properties) throws Exception {
+        return properties.dataSource();
     }
 
+    /**
+     * slave data source
+     *
+     * @param properties slave data source properties
+     * @return DataSource
+     */
     @Bean
-    @ConfigurationProperties("spring.datasource.druid.slave")
     @ConditionalOnProperty(prefix = "spring.datasource.druid.slave", name = "enabled", havingValue = "true")
-    public DataSource slaveDataSource(DruidProperties druidProperties) {
-        DruidDataSource dataSource = DruidDataSourceBuilder.create().build();
-        return druidProperties.dataSource(dataSource);
+    public DataSource slaveDataSource(SlaveDruidProperties properties) throws Exception {
+        return properties.dataSource();
     }
 
+    /**
+     * dynamic data source.
+     * Springboot will search the bean by type(DataSource),
+     * if the type contains multi beans, it will choose by name.
+     *
+     * @param masterDataSource bean named masterDataSource.
+     * @return DataSource
+     */
     @Bean(name = "dynamicDataSource")
     @Primary
     public DynamicDataSource dataSource(DataSource masterDataSource) {
         Map<Object, Object> targetDataSources = new HashMap<>();
-        targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
-        setDataSource(targetDataSources, DataSourceType.SLAVE.name(), "slaveDataSource");
-        return new DynamicDataSource(masterDataSource, targetDataSources);
-    }
 
-    /**
-     * 设置数据源
-     *
-     * @param targetDataSources 备选数据源集合
-     * @param sourceName        数据源名称
-     * @param beanName          bean名称
-     */
-    public void setDataSource(Map<Object, Object> targetDataSources, String sourceName, String beanName) {
+        targetDataSources.put(DataSourceType.MASTER.name(), masterDataSource);
         try {
-            DataSource dataSource = SpringUtils.getBean(beanName);
-            targetDataSources.put(sourceName, dataSource);
-        } catch (Exception e) {
+            // if slaveDataSource is completely not registered , ignore
+            DataSource dataSource = SpringUtils.getBean("slaveDataSource");
+            targetDataSources.put(DataSourceType.SLAVE.name(), dataSource);
+        } catch (Exception ignored) {
+            log.info("the slave dataSource is unable.");
         }
+
+        return new DynamicDataSource(masterDataSource, targetDataSources);
     }
 
     /**
