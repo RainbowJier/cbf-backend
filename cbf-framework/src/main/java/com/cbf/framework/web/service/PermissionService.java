@@ -32,6 +32,8 @@ public class PermissionService {
         if (StringUtils.isNull(loginUser) || CollectionUtils.isEmpty(loginUser.getPermissions())) {
             return false;
         }
+
+        // 在当前请求线程中添加权限字符串
         PermissionContextHolder.setContext(permission);
         return hasPermissions(loginUser.getPermissions(), permission);
     }
@@ -43,7 +45,7 @@ public class PermissionService {
      * @return 用户是否不具备某权限
      */
     public boolean lacksPermi(String permission) {
-        return hasPermi(permission) != true;
+        return !hasPermi(permission);
     }
 
     /**
@@ -63,7 +65,7 @@ public class PermissionService {
         PermissionContextHolder.setContext(permissions);
         Set<String> authorities = loginUser.getPermissions();
         for (String permission : permissions.split(Constants.PERMISSION_DELIMETER)) {
-            if (permission != null && hasPermissions(authorities, permission)) {
+            if (hasPermissions(authorities, permission)) {
                 return true;
             }
         }

@@ -22,6 +22,8 @@
         <result property="errorMsg" column="error_msg"/>
         <result property="operTime" column="oper_time"/>
         <result property="costTime" column="cost_time"/>
+        <result property="userId" column="user_id"/>
+        <result property="deptId" column="dept_id"/>
     </resultMap>
 
     <sql id="selectOperLogVo">
@@ -41,17 +43,19 @@
                status,
                error_msg,
                oper_time,
-               cost_time
+               cost_time,
+               user_id,
+               dept_id
         from sys_oper_log
     </sql>
 
     <insert id="insertOperlog" parameterType="SysOperLog">
         insert into sys_oper_log(title, business_type, method, request_method, operator_type, oper_name, dept_name,
                                  oper_url, oper_ip, oper_location, oper_param, json_result, status, error_msg,
-                                 cost_time, oper_time)
+                                 cost_time, oper_time,user_id,dept_id)
         values (#{title}, #{businessType}, #{method}, #{requestMethod}, #{operatorType}, #{operName}, #{deptName},
                 #{operUrl}, #{operIp}, #{operLocation}, #{operParam}, #{jsonResult}, #{status}, #{errorMsg},
-                #{costTime}, sysdate())
+                #{costTime}, sysdate(),#{userId},#{deptId})
     </insert>
 
     <select id="selectOperLogList" parameterType="SysOperLog" resultMap="SysOperLogResult">

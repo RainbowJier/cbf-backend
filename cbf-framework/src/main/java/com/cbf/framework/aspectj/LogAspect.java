@@ -85,6 +85,9 @@ public class LogAspect {
         try {
             // 获取当前的用户
             LoginUser loginUser = SecurityUtils.getLoginUser();
+            if(loginUser == null){
+                throw new RuntimeException("日志记录-获取当前用户信息为空");
+            }
 
             // *========数据库日志=========*//
             SysOperLog operLog = new SysOperLog();
@@ -93,29 +96,31 @@ public class LogAspect {
             String ip = IpUtils.getIpAddr();
             operLog.setOperIp(ip);
             operLog.setOperUrl(StringUtils.substring(ServletUtils.getRequest().getRequestURI(), 0, 255));
-            if (loginUser != null) {
-                operLog.setOperName(loginUser.getUsername());
-                SysUser currentUser = loginUser.getUser();
-                if (StringUtils.isNotNull(currentUser) && StringUtils.isNotNull(currentUser.getDept())) {
-                    operLog.setDeptName(currentUser.getDept().getDeptName());
-                }
+            operLog.setOperName(loginUser.getUsername());
+            SysUser currentUser = loginUser.getUser();
+            if (StringUtils.isNotNull(currentUser) && StringUtils.isNotNull(currentUser.getDept())) {
+                operLog.setDeptName(currentUser.getDept().getDeptName());
             }
 
             if (e != null) {
                 operLog.setStatus(BusinessStatus.FAIL.ordinal());
                 operLog.setErrorMsg(StringUtils.substring(Convert.toStr(e.getMessage(), ExceptionUtil.getExceptionMessage(e)), 0, 2000));
             }
-            // 设置方法名称
+            // set method name.
             String className = joinPoint.getTarget().getClass().getName();
             String methodName = joinPoint.getSignature().getName();
             operLog.setMethod(className + "." + methodName + "()");
-            // 设置请求方式
+            // Request method.
             operLog.setRequestMethod(ServletUtils.getRequest().getMethod());
             // 处理设置注解上的参数
             getControllerMethodDescription(joinPoint, controllerLog, operLog, jsonResult);
-            // 设置消耗时间
+            // Set cost time.
             operLog.setCostTime(System.currentTimeMillis() - TIME_THREADLOCAL.get());
-            // 保存数据库
+            // Set data scope.
+            operLog.setUserId(loginUser.getUserId());
+            operLog.setDeptId(loginUser.getDeptId());
+
+            // Store to database.
             AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
         } catch (Exception exp) {
             // 记录本地异常日志

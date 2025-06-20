@@ -11,6 +11,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.experimental.Accessors;
 
 import java.util.Date;
 
@@ -24,6 +25,7 @@ import java.util.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @EqualsAndHashCode(callSuper = true)
+@Accessors(chain = true)
 @TableName(value = "sys_oper_log")
 public class SysOperLog extends BaseEntity {
 
@@ -151,4 +153,17 @@ public class SysOperLog extends BaseEntity {
     @Excel(name = "消耗时间", suffix = "毫秒")
     @TableField(value = "cost_time")
     private Long costTime;
+
+    /**
+     * 用户id
+     */
+    @TableField(value = "user_id")
+    private Long userId;
+
+    /**
+     * 部门id
+     */
+    @TableField(value = "dept_id")
+    private Long deptId;
+
 }

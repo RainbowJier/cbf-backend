@@ -203,7 +203,7 @@ public class SysUserController extends BaseController {
     /**
      * 用户授权角色
      */
-    @PreAuthorize("@ss.hasPermi('system:user:edit')")
+    @PreAuthorize("@ss.hasPermi('system:user:editRole')")
     @Log(title = "用户管理", businessType = BusinessType.GRANT)
     @PutMapping("/authRole")
     public AjaxResult insertAuthRole(Long userId, Long[] roleIds) {

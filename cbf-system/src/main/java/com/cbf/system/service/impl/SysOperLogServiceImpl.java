@@ -1,5 +1,6 @@
 package com.cbf.system.service.impl;
 
+import com.cbf.common.annotation.DataScope;
 import com.cbf.system.domain.SysOperLog;
 import com.cbf.system.mapper.SysOperLogMapper;
 import com.cbf.system.service.ISysOperLogService;
@@ -34,6 +35,7 @@ public class SysOperLogServiceImpl implements ISysOperLogService {
      * @param operLog 操作日志对象
      * @return 操作日志集合
      */
+    @DataScope(deptAlias = "d", userAlias = "u")
     @Override
     public List<SysOperLog> selectOperLogList(SysOperLog operLog) {
         return operLogMapper.selectOperLogList(operLog);

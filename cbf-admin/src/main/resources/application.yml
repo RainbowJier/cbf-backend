@@ -98,9 +98,11 @@ mybatis-plus:
   type-aliases-package: com.cbf.**.domain
   # 配置mapper的扫描，找到所有的mapper.xml映射文件
   mapper-locations: classpath*:mapper/**/*Mapper.xml
-  # 驼峰
   configuration:
+    # 驼峰
     map-underscore-to-camel-case: true
+    # 后台打印日志
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
 # PageHelper分页插件
 pagehelper:

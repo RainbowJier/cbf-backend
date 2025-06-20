@@ -301,6 +301,8 @@ values ('1005', '用户导入', '100', '6', '', '', '', '', 1, 0, 'F', '0', '0',
 insert into sys_menu
 values ('1006', '重置密码', '100', '7', '', '', '', '', 1, 0, 'F', '0', '0', 'system:user:resetPwd', '#', 'admin',
         sysdate(), '', null, '');
+
+
 -- 角色管理按钮
 insert into sys_menu
 values ('1007', '角色查询', '101', '1', '', '', '', '', 1, 0, 'F', '0', '0', 'system:role:query', '#', 'admin',
@@ -1204,6 +1206,19 @@ values('课程信息删除', @parentId, '4',  '#', '', 1, 0, 'F', '0', '0', 'cou
 
 insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
 values('课程信息导出', @parentId, '5',  '#', '', 1, 0, 'F', '0', '0', 'course:course:export',       '#', 'admin', sysdate(), '', null, '');
+
+
+-- ----------------------------
+-- 菜单信息表-新增分配角色按钮权限控制（2025-06-20）
+-- ----------------------------
+INSERT INTO sys_menu (menu_name, parent_id, order_num, `path`, component, query, route_name, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
+VALUES('分配角色', 100, 8, '', '', '', '', 1, 0, 'F', '0', '0', 'system:user:editRole', '#', 'admin', '2025-06-16 16:32:56', '', '', '');
+
+-- 新增日志数据权限控制（2025-06-20）
+ALTER TABLE sys_oper_log ADD user_id varchar(100) DEFAULT '' NULL COMMENT '用户id';
+ALTER TABLE sys_oper_log ADD dept_id varchar(100) DEFAULT '' NULL COMMENT '部门id';
+
+
 
 
 

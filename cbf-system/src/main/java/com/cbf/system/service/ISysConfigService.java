@@ -62,22 +62,22 @@ public interface ISysConfigService {
      *
      * @param configIds 需要删除的参数ID
      */
-    public void deleteConfigByIds(Long[] configIds);
+     void deleteConfigByIds(Long[] configIds);
 
     /**
      * 加载参数缓存数据
      */
-    public void loadingConfigCache();
+     void loadingConfigCache();
 
     /**
      * 清空参数缓存数据
      */
-    public void clearConfigCache();
+     void clearConfigCache();
 
     /**
      * 重置参数缓存数据
      */
-    public void resetConfigCache();
+     void resetConfigCache();
 
     /**
      * 校验参数键名是否唯一
@@ -85,5 +85,5 @@ public interface ISysConfigService {
      * @param config 参数信息
      * @return 结果
      */
-    public boolean checkConfigKeyUnique(SysConfig config);
+     boolean checkConfigKeyUnique(SysConfig config);
 }

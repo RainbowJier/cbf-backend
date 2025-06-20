@@ -287,14 +287,14 @@ public class SysRoleServiceImpl implements ISysRoleService {
     public int insertRoleDept(SysRole role) {
         int rows = 1;
         // 新增角色与部门（数据权限）管理
-        List<SysRoleDept> list = new ArrayList<SysRoleDept>();
+        List<SysRoleDept> list = new ArrayList<>();
         for (Long deptId : role.getDeptIds()) {
             SysRoleDept rd = new SysRoleDept();
             rd.setRoleId(role.getRoleId());
             rd.setDeptId(deptId);
             list.add(rd);
         }
-        if (list.size() > 0) {
+        if (!list.isEmpty()) {
             rows = sysRoleDeptMapper.batchRoleDept(list);
         }
         return rows;
