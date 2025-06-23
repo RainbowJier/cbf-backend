@@ -6,7 +6,6 @@ import com.cbf.common.constant.UserConstants;
 import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.domain.model.LoginUser;
 import com.cbf.common.core.redis.RedisCache;
-import com.cbf.common.enums.UserStatus;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.exception.user.*;
 import com.cbf.common.utils.DateUtils;
@@ -16,11 +15,9 @@ import com.cbf.common.utils.ip.IpUtils;
 import com.cbf.framework.manager.AsyncManager;
 import com.cbf.framework.manager.factory.AsyncFactory;
 import com.cbf.framework.security.context.AuthenticationContextHolder;
-import com.cbf.system.mapper.SysUserMapper;
 import com.cbf.system.service.ISysConfigService;
 import com.cbf.system.service.ISysUserService;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -28,7 +25,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.Resource;
-import java.util.Set;
 
 /**
  * 登录校验方法

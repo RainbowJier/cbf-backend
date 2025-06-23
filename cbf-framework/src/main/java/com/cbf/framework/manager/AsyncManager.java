@@ -3,6 +3,7 @@ package com.cbf.framework.manager;
 import com.cbf.common.utils.Threads;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PreDestroy;
@@ -12,7 +13,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 /**
- * 异步任务管理器
+ * Asynchronous task manager
  *
  * @author Frank
  */
@@ -21,20 +22,27 @@ import java.util.concurrent.TimeUnit;
 @Component
 public class AsyncManager {
     /**
-     * 操作延迟10毫秒
+     * Operate delay time, default is 10 milliseconds.
      */
     private final int OPERATE_DELAY_TIME = 10;
 
     /**
-     * 异步操作任务调度线程池
+     * Thread pool, bean of ScheduledExecutorService
      */
     @Resource
     @Qualifier("scheduledExecutorService")
     private ScheduledExecutorService scheduledExecutor;
 
     /**
-     * 执行任务
-     *
+     * Thread pool, bean of ThreadPoolTaskExecutor
+     */
+    @Resource
+    @Qualifier("threadPoolTaskExecutor")
+    private ThreadPoolTaskExecutor threadPoolTaskExecutor;
+
+    /**
+     * Execute task.
+     * Execute task after 10 milliseconds.
      * @param task 任务
      */
     public void execute(TimerTask task) {
@@ -42,12 +50,12 @@ public class AsyncManager {
     }
 
     /**
-     * 停止任务线程池
+     * Shutdown the scheduled executor service.
      */
     @PreDestroy
     private void shutdown() {
         try {
-            log.info("====关闭后台任务任务线程池====");
+            log.info("====Shutdown the task thread pool.====");
             Threads.shutdownAndAwaitTermination(scheduledExecutor);
         } catch (Exception e) {
             log.error(e.getMessage(), e);
