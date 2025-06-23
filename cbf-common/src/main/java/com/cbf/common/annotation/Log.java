@@ -15,32 +15,34 @@ import java.lang.annotation.*;
 @Documented
 public @interface Log {
     /**
-     * 模块
+     * module
      */
     String title() default "";
 
     /**
-     * 功能
+     * function
      */
     BusinessType businessType() default BusinessType.OTHER;
 
     /**
-     * 操作人类别
+     * operator type.
      */
     OperatorType operatorType() default OperatorType.MANAGE;
 
     /**
-     * 是否保存请求的参数
+     * store request parameters or not.
      */
     boolean isSaveRequestData() default true;
 
     /**
      * 是否保存响应的参数
+     * store response data or not.
      */
     boolean isSaveResponseData() default true;
 
     /**
      * 排除指定的请求参数
+     * exclude specified request parameters
      */
     String[] excludeParamNames() default {};
 }
