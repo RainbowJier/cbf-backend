@@ -19,6 +19,8 @@ import com.cbf.system.service.ISysUserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import javax.annotation.Resource;
+
 /**
  * 注册校验方法
  *
@@ -34,6 +36,9 @@ public class SysRegisterService {
 
     @Autowired
     private RedisCache redisCache;
+
+    @Resource
+    private AsyncManager asyncManager;
 
     /**
      * 注册
@@ -69,7 +74,7 @@ public class SysRegisterService {
             if (!regFlag) {
                 msg = "注册失败,请联系系统管理人员";
             } else {
-                AsyncManager.me().execute(AsyncFactory.recordLogininfor(username, Constants.REGISTER, MessageUtils.message("user.register.success")));
+                asyncManager.execute(AsyncFactory.recordLogininfor(username, Constants.REGISTER, MessageUtils.message("user.register.success")));
             }
         }
         return msg;

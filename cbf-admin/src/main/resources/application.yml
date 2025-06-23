@@ -104,9 +104,11 @@ mybatis-plus:
 
 # PageHelper分页插件
 pagehelper:
-  helperDialect: mysql
-  supportMethodsArguments: true
-  params: count=countSql
+  helperDialect: mysql           # 数据库方言，支持 mysql、oracle、mariadb、sqlite、postgresql 等
+  reasonable: true               # 启用合理化分页（pageNum<=0时自动设置为1，pageSize<=0时默认pageSize）
+  supportMethodsArguments: true  # 支持通过 Mapper 方法参数传入分页参数
+  params: count=countSql         # 用于设置 count 查询的参数映射
+  autoRuntimeDialect: false      # 启用自动识别方言（建议关闭以提高性能）
 
 # token配置
 token:

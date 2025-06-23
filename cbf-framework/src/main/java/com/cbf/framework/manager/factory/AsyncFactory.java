@@ -12,8 +12,7 @@ import com.cbf.system.domain.SysOperLog;
 import com.cbf.system.service.ISysLogininforService;
 import com.cbf.system.service.ISysOperLogService;
 import eu.bitwalker.useragentutils.UserAgent;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.TimerTask;
 
@@ -22,8 +21,8 @@ import java.util.TimerTask;
  *
  * @author Frank
  */
+@Slf4j
 public class AsyncFactory {
-    private static final Logger sys_user_logger = LoggerFactory.getLogger("sys-user");
 
     /**
      * 记录登录信息
@@ -34,10 +33,9 @@ public class AsyncFactory {
      * @param args     列表
      * @return 任务task
      */
-    public static TimerTask recordLogininfor(final String username, final String status, final String message,
-                                             final Object... args) {
-        final UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
-        final String ip = IpUtils.getIpAddr();
+    public static TimerTask recordLogininfor(String username, String status, String message, Object... args) {
+        UserAgent userAgent = UserAgent.parseUserAgentString(ServletUtils.getRequest().getHeader("User-Agent"));
+        String ip = IpUtils.getIpAddr();
         return new TimerTask() {
             @Override
             public void run() {
@@ -49,7 +47,7 @@ public class AsyncFactory {
                 s.append(LogUtils.getBlock(status));
                 s.append(LogUtils.getBlock(message));
                 // 打印信息到日志
-                sys_user_logger.info(s.toString(), args);
+                log.info(s.toString(), args);
                 // 获取客户端操作系统
                 String os = userAgent.getOperatingSystem().getName();
                 // 获取客户端浏览器
@@ -80,7 +78,7 @@ public class AsyncFactory {
      * @param operLog 操作日志信息
      * @return 任务task
      */
-    public static TimerTask recordOper(final SysOperLog operLog) {
+    public static TimerTask recordOper(SysOperLog operLog) {
         return new TimerTask() {
             @Override
             public void run() {

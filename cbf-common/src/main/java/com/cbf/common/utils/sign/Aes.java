@@ -27,8 +27,8 @@ public class Aes {
         return new String(cipher.doFinal(Base64.getDecoder().decode(encrypted)));
     }
 
-    public static void main(String[] args) throws Exception {
-        String encrypted = encrypt("cbf_redis");
-        System.out.println("Encrypted password: " + encrypted);
-    }
+    // public static void main(String[] args) throws Exception {
+    //     String encrypted = encrypt("cbf_redis");
+    //     System.out.println("Encrypted password: " + encrypted);
+    // }
 }

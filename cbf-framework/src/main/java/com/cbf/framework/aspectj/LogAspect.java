@@ -29,6 +29,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.multipart.MultipartFile;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Collection;
@@ -42,6 +43,9 @@ import java.util.Map;
 @Aspect
 @Component
 public class LogAspect {
+    @Resource
+    private AsyncManager asyncManager;
+
     /**
      * 排除敏感属性字段
      */
@@ -121,7 +125,7 @@ public class LogAspect {
             operLog.setDeptId(loginUser.getDeptId());
 
             // Store to database.
-            AsyncManager.me().execute(AsyncFactory.recordOper(operLog));
+            asyncManager.execute(AsyncFactory.recordOper(operLog));
         } catch (Exception exp) {
             // 记录本地异常日志
             log.error("异常信息:{}", exp.getMessage());

@@ -1,8 +1,12 @@
 package com.cbf.framework.manager;
 
 import com.cbf.common.utils.Threads;
-import com.cbf.common.utils.spring.SpringUtils;
+import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+import javax.annotation.PreDestroy;
+import javax.annotation.Resource;
 import java.util.TimerTask;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -12,26 +16,21 @@ import java.util.concurrent.TimeUnit;
  *
  * @author Frank
  */
+
+@Slf4j
+@Component
 public class AsyncManager {
-    private static AsyncManager me = new AsyncManager();
     /**
      * 操作延迟10毫秒
      */
     private final int OPERATE_DELAY_TIME = 10;
+
     /**
      * 异步操作任务调度线程池
      */
-    private ScheduledExecutorService executor = SpringUtils.getBean("scheduledExecutorService");
-
-    /**
-     * 单例模式
-     */
-    private AsyncManager() {
-    }
-
-    public static AsyncManager me() {
-        return me;
-    }
+    @Resource
+    @Qualifier("scheduledExecutorService")
+    private ScheduledExecutorService scheduledExecutor;
 
     /**
      * 执行任务
@@ -39,13 +38,19 @@ public class AsyncManager {
      * @param task 任务
      */
     public void execute(TimerTask task) {
-        executor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
+        scheduledExecutor.schedule(task, OPERATE_DELAY_TIME, TimeUnit.MILLISECONDS);
     }
 
     /**
      * 停止任务线程池
      */
-    public void shutdown() {
-        Threads.shutdownAndAwaitTermination(executor);
+    @PreDestroy
+    private void shutdown() {
+        try {
+            log.info("====关闭后台任务任务线程池====");
+            Threads.shutdownAndAwaitTermination(scheduledExecutor);
+        } catch (Exception e) {
+            log.error(e.getMessage(), e);
+        }
     }
 }

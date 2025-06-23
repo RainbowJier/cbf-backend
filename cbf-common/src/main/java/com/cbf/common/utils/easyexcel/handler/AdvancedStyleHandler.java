@@ -21,12 +21,10 @@ import java.util.Map;
 
 public class AdvancedStyleHandler extends HorizontalCellStyleStrategy {
 
-    // 自定义列宽配置
-    private final Map<Integer, Integer> columnWidthMap;
-
     public AdvancedStyleHandler() {
         super(createHeadStyle(), createContentStyle());
-        columnWidthMap = new HashMap<>();
+        // 自定义列宽配置
+        Map<Integer, Integer> columnWidthMap = new HashMap<>();
         columnWidthMap.put(0, 5000);  // 第1列宽度（以字符数 * 256计）
         columnWidthMap.put(1, 8000);  // 第2列
         columnWidthMap.put(2, 10000); // 第3列

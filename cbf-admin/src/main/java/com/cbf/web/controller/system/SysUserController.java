@@ -8,6 +8,7 @@ import com.cbf.common.core.domain.entity.SysRole;
 import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.page.TableDataInfo;
 import com.cbf.common.enums.BusinessType;
+import com.cbf.common.utils.PageUtils;
 import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.poi.ExcelUtil;
@@ -52,7 +53,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysUser user) {
-        startPage();
+        PageUtils.startPage();
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
     }

@@ -48,8 +48,8 @@ public class ExcelExportUtil {
     /**
      * 多 Sheet 导出
      * 示例：
-     * List<Course> classA = courseService.getCoursesByClass("A");
-     * List<Course> classB = courseService.getCoursesByClass("B");
+     * List<Course> listA = courseService.getCoursesByClass("A");
+     * List<Course> listB = courseService.getCoursesByClass("B");
      * List<ExcelExportUtil.SheetData<Course>> sheets = List.of(
      *      new ExcelExportUtil.SheetData<>("sheetName-A", listA, Course.class),
      *      new ExcelExportUtil.SheetData<>("sheetName-B", listB, Course.class)

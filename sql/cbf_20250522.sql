@@ -1115,100 +1115,6 @@ create table gen_table_column
         = '代码生成业务表字段';
 
 -- ----------------------------
--- 20、课程信息表（2025-05-31）
--- ----------------------------
-CREATE TABLE IF NOT EXISTS course
-(
-    id
-                 BIGINT
-        PRIMARY
-            KEY
-        AUTO_INCREMENT
-        COMMENT
-            '课程ID',
-    code
-                 VARCHAR(50)  NOT NULL COMMENT '课程编码',
-    subject      VARCHAR(100) COMMENT '课程学科',
-    name         VARCHAR(100) NOT NULL COMMENT '课程名称',
-    price        DECIMAL(10,
-                     2)       NOT NULL DEFAULT 0.00 COMMENT '价格（元）',
-    target_group VARCHAR(100) COMMENT '适用人群',
-    description  TEXT COMMENT '课程介绍',
-    create_time  DATETIME              DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
-    update_time  DATETIME              DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间'
-) ENGINE = InnoDB
-  DEFAULT CHARSET = utf8mb4
-    COMMENT
-        ='课程信息表';
-
-INSERT INTO course (code, subject, name, price, target_group, description)
-VALUES ('cp100001', 'JavaEE', 'JavaSE基础', 199.00, '小白学员', 'JavaSE基础入门课程'),
-       ('cp100002', 'JavaEE', 'JavaWeb开发', 188.00, '初级开发者', 'JavaWeb核心技术讲解')
-        ,
-       ('cp100003', 'Python+大数据', 'Python入门', 555.00, '小白学员', '从零开始学Python')
-        ,
-       ('cp100004', 'Python+大数据', 'Python数据分析', 288.00, '初级开发者', 'Python与Pandas实战')
-        ,
-       ('cp100005', '鸿蒙应用开发', '鸿蒙入门', 99.00, '小白学员', '快速了解鸿蒙开发')
-        ,
-       ('cp100006', '鸿蒙应用开发', '鸿蒙商城实战', 59.00, '初级开发者', '完整商城项目开发')
-        ,
-       ('cp100007', '前端开发', 'HTML+CSS基础', 49.00, '小白学员', '前端基础快速入门')
-        ,
-       ('cp100008', '前端开发', 'JavaScript基础', 69.00, '初级开发者', '掌握JS核心语法')
-        ,
-       ('cp100009', '前端开发', 'Vue实战电商', 199.00, '初级开发者', 'Vue+Element商城项目')
-        ,
-       ('cp100010', '后端开发', 'Spring Boot入门', 149.00, '初级开发者', '构建REST API项目')
-        ,
-       ('cp100011', '后端开发', 'MySQL数据库基础', 89.00, '小白学员', '数据库基础知识讲解')
-        ,
-       ('cp100012', '数据结构', '算法初级班', 199.00, '初级开发者', '掌握基本数据结构')
-        ,
-       ('cp100013', '人工智能', 'AI导论', 399.00, '感兴趣学员', '人工智能发展与应用')
-        ,
-       ('cp100014', '人工智能', '机器学习实战', 699.00, '进阶开发者', 'Sklearn+模型实操')
-        ,
-       ('cp100015', '大数据', 'Hadoop基础', 299.00, '初级开发者', '分布式存储与计算')
-        ,
-       ('cp100016', '大数据', 'Spark大数据分析', 399.00, '进阶开发者', '实时计算框架入门')
-        ,
-       ('cp100017', '移动开发', 'Flutter快速入门', 159.00, '小白学员', '跨平台开发基础')
-        ,
-       ('cp100018', '移动开发', 'React Native实战', 179.00, '初级开发者', '构建移动APP')
-        ,
-       ('cp100019', '产品经理', 'Axure原型设计', 109.00, '产品新人', 'Axure工具实战入门')
-        ,
-       ('cp100020', '产品经理', '需求分析与文档编写', 129.00, '产品新人', '从用户到文档的转化');
-
--- ----------------------------
--- 菜单信息表-新增课程数据（2025-06-18）
--- ----------------------------
--- 菜单 SQL
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息', '3', '1', 'course', 'course/course/index', 1, 0, 'C', '0', '0', 'course:course:list', '#', 'admin', sysdate(), '', null, '课程信息菜单');
-
--- 按钮父菜单ID
-SELECT @parentId := LAST_INSERT_ID();
-
--- 按钮 SQL
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息查询', @parentId, '1',  '#', '', 1, 0, 'F', '0', '0', 'course:course:query',        '#', 'admin', sysdate(), '', null, '');
-
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息新增', @parentId, '2',  '#', '', 1, 0, 'F', '0', '0', 'course:course:add',          '#', 'admin', sysdate(), '', null, '');
-
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息修改', @parentId, '3',  '#', '', 1, 0, 'F', '0', '0', 'course:course:edit',         '#', 'admin', sysdate(), '', null, '');
-
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息删除', @parentId, '4',  '#', '', 1, 0, 'F', '0', '0', 'course:course:remove',       '#', 'admin', sysdate(), '', null, '');
-
-insert into sys_menu (menu_name, parent_id, order_num, path, component, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
-values('课程信息导出', @parentId, '5',  '#', '', 1, 0, 'F', '0', '0', 'course:course:export',       '#', 'admin', sysdate(), '', null, '');
-
-
--- ----------------------------
 -- 菜单信息表-新增分配角色按钮权限控制（2025-06-20）
 -- ----------------------------
 INSERT INTO sys_menu (menu_name, parent_id, order_num, `path`, component, query, route_name, is_frame, is_cache, menu_type, visible, status, perms, icon, create_by, create_time, update_by, update_time, remark)
@@ -1217,6 +1123,11 @@ VALUES('分配角色', 100, 8, '', '', '', '', 1, 0, 'F', '0', '0', 'system:user
 -- 新增日志数据权限控制（2025-06-20）
 ALTER TABLE sys_oper_log ADD user_id varchar(100) DEFAULT '' NULL COMMENT '用户id';
 ALTER TABLE sys_oper_log ADD dept_id varchar(100) DEFAULT '' NULL COMMENT '部门id';
+
+
+
+
+
 
 
 
