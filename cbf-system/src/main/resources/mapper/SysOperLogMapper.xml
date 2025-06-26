@@ -89,6 +89,8 @@
                 AND oper_time &lt;= #{params.endTime}
             </if>
         </where>
+        <!-- 数据范围过滤 -->
+        ${params.dataScope}
         order by oper_id desc
     </select>
 

@@ -20,7 +20,6 @@
         <module>cbf-quartz</module>
         <module>cbf-generator</module>
         <module>cbf-common</module>
-        <module>cbf-blog</module>
     </modules>
 
     <!-- 属性配置 -->
@@ -226,11 +225,6 @@
             <dependency>
                 <groupId>com.cbf</groupId>
                 <artifactId>cbf-common</artifactId>
-                <version>${cbf.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.cbf</groupId>
-                <artifactId>cbf-blog</artifactId>
                 <version>${cbf.version}</version>
             </dependency>
         </dependencies>

@@ -1,5 +1,7 @@
 package com.cbf.system.mapper;
 
+import com.cbf.common.annotation.DataSource;
+import com.cbf.common.enums.DataSourceType;
 import com.cbf.system.domain.SysConfig;
 
 import java.util.List;
@@ -16,6 +18,7 @@ public interface SysConfigMapper {
      * @param config 参数配置信息
      * @return 参数配置信息
      */
+    @DataSource(DataSourceType.MASTER)
     SysConfig selectConfig(SysConfig config);
 
     /**

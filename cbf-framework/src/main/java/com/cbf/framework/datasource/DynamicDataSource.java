@@ -6,17 +6,23 @@ import javax.sql.DataSource;
 import java.util.Map;
 
 /**
- * 动态数据源
+ * Dynamic DataSource
  *
  * @author Frank
  */
 public class DynamicDataSource extends AbstractRoutingDataSource {
     public DynamicDataSource(DataSource defaultTargetDataSource, Map<Object, Object> targetDataSources) {
+        // set default data source.
         super.setDefaultTargetDataSource(defaultTargetDataSource);
+        // set data source map, store multi type of data source.
         super.setTargetDataSources(targetDataSources);
+        // initialize configuration.
         super.afterPropertiesSet();
     }
 
+    /**
+     * Determine the current data source.
+     */
     @Override
     protected Object determineCurrentLookupKey() {
         return DynamicDataSourceContextHolder.getDataSourceType();

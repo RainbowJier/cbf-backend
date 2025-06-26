@@ -14,12 +14,12 @@ import java.net.URLEncoder;
 import java.util.List;
 
 /**
- * 通用 EasyExcel 导出工具类
+ * Common EasyExcel Export Util
  */
-public class ExcelExportUtil {
+public class ExportUtil {
 
     /**
-     * 单 Sheet 导出（带样式）
+     * Export single sheet with style
      */
     public static <T> void export(HttpServletResponse response,
                                   List<T> dataList,
@@ -50,9 +50,9 @@ public class ExcelExportUtil {
      * 示例：
      * List<Course> listA = courseService.getCoursesByClass("A");
      * List<Course> listB = courseService.getCoursesByClass("B");
-     * List<ExcelExportUtil.SheetData<Course>> sheets = List.of(
-     *      new ExcelExportUtil.SheetData<>("sheetName-A", listA, Course.class),
-     *      new ExcelExportUtil.SheetData<>("sheetName-B", listB, Course.class)
+     * List<ExportUtil.SheetData<Course>> sheets = List.of(
+     *      new ExportUtil.SheetData<>("sheetName-A", listA, Course.class),
+     *      new ExportUtil.SheetData<>("sheetName-B", listB, Course.class)
      * );
      */
     public static <T> void exportMultipleSheets(HttpServletResponse response,
@@ -73,7 +73,7 @@ public class ExcelExportUtil {
             }
             writer.finish();
         } catch (Exception e) {
-            throw new RuntimeException("多 Sheet 导出失败：" + e.getMessage(), e);
+            throw new RuntimeException("Export multi sheets Error: " + e.getMessage(), e);
         }
     }
 
@@ -93,7 +93,7 @@ public class ExcelExportUtil {
 
 
     /**
-     * SheetData 内部类：支持多 Sheet
+     * SheetData inner class: support multi sheets
      */
     @Data
     @AllArgsConstructor

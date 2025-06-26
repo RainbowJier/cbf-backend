@@ -1,8 +1,8 @@
 package com.cbf.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.cbf.common.annotation.DataScope;
 import com.cbf.common.core.domain.entity.SysUser;
-import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
@@ -19,6 +19,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @param sysUser 用户信息
      * @return 用户信息集合信息
      */
+    @DataScope(deptAlias = "d", userAlias = "u")
     List<SysUser> selectUserList(SysUser sysUser);
 
     /**
@@ -27,6 +28,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @param user 用户信息
      * @return 用户信息集合信息
      */
+    @DataScope(deptAlias = "d", userAlias = "u")
     List<SysUser> selectAllocatedList(SysUser user);
 
     /**
@@ -35,6 +37,7 @@ public interface SysUserMapper extends BaseMapper<SysUser> {
      * @param user 用户信息
      * @return 用户信息集合信息
      */
+    @DataScope(deptAlias = "d", userAlias = "u")
     List<SysUser> selectUnallocatedList(SysUser user);
 
     /**

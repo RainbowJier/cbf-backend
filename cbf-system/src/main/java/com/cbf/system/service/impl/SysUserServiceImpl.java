@@ -1,6 +1,5 @@
 package com.cbf.system.service.impl;
 
-import com.cbf.common.annotation.DataScope;
 import com.cbf.common.constant.UserConstants;
 import com.cbf.common.core.domain.entity.SysRole;
 import com.cbf.common.core.domain.entity.SysUser;
@@ -60,7 +59,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUserList(SysUser user) {
         return userMapper.selectUserList(user);
     }
@@ -72,7 +70,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectAllocatedList(SysUser user) {
         return userMapper.selectAllocatedList(user);
     }
@@ -84,7 +81,6 @@ public class SysUserServiceImpl implements ISysUserService {
      * @return 用户信息集合信息
      */
     @Override
-    @DataScope(deptAlias = "d", userAlias = "u")
     public List<SysUser> selectUnallocatedList(SysUser user) {
         return userMapper.selectUnallocatedList(user);
     }

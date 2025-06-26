@@ -16,7 +16,9 @@ import org.springframework.beans.factory.annotation.Value;
 @Data
 public class BaseDruidProperties {
     private String url;
+
     private String username;
+
     private String password;
 
     @Value("${spring.datasource.druid.initialSize}")

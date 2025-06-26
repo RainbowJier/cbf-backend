@@ -11,7 +11,6 @@ import com.cbf.common.enums.BusinessType;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.system.domain.SysUserOnline;
 import com.cbf.system.service.ISysUserOnlineService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -29,19 +28,28 @@ import java.util.List;
 @RestController
 @RequestMapping("/monitor/online")
 public class SysUserOnlineController extends BaseController {
+
     @Resource
     private ISysUserOnlineService userOnlineService;
 
     @Resource
     private RedisCache redisCache;
 
+    /**
+     * Query users list online.
+     *
+     * @param ipaddr   login ip(optional)
+     * @param userName login userName
+     */
     @PreAuthorize("@ss.hasPermi('monitor:online:list')")
     @GetMapping("/list")
     public TableDataInfo list(String ipaddr, String userName) {
         Collection<String> keys = redisCache.keys(CacheConstants.LOGIN_TOKEN_KEY + "*");
-        List<SysUserOnline> userOnlineList = new ArrayList<SysUserOnline>();
+
+        List<SysUserOnline> userOnlineList = new ArrayList<>();
         for (String key : keys) {
             LoginUser user = redisCache.getCacheObject(key);
+
             if (StringUtils.isNotEmpty(ipaddr) && StringUtils.isNotEmpty(userName)) {
                 userOnlineList.add(userOnlineService.selectOnlineByInfo(ipaddr, userName, user));
             } else if (StringUtils.isNotEmpty(ipaddr)) {
@@ -52,13 +60,17 @@ public class SysUserOnlineController extends BaseController {
                 userOnlineList.add(userOnlineService.loginUserToUserOnline(user));
             }
         }
+
         Collections.reverse(userOnlineList);
+
+        // For users who are forcibly exited, the object will be null.
         userOnlineList.removeAll(Collections.singleton(null));
+
         return getDataTable(userOnlineList);
     }
 
     /**
-     * 强退用户
+     * Force users to exit.
      */
     @PreAuthorize("@ss.hasPermi('monitor:online:forceLogout')")
     @Log(title = "在线用户", businessType = BusinessType.FORCE)

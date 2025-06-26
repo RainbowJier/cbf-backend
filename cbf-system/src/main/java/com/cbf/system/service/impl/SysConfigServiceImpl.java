@@ -1,11 +1,9 @@
 package com.cbf.system.service.impl;
 
-import com.cbf.common.annotation.DataSource;
 import com.cbf.common.constant.CacheConstants;
 import com.cbf.common.constant.UserConstants;
 import com.cbf.common.core.redis.RedisCache;
 import com.cbf.common.core.text.Convert;
-import com.cbf.common.enums.DataSourceType;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.system.domain.SysConfig;
@@ -46,7 +44,6 @@ public class SysConfigServiceImpl implements ISysConfigService {
      * @return 参数配置信息
      */
     @Override
-    @DataSource(DataSourceType.MASTER)
     public SysConfig selectConfigById(Long configId) {
         SysConfig config = new SysConfig();
         config.setConfigId(configId);

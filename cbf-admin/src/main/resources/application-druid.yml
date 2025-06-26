@@ -1,56 +1,42 @@
-# 数据源配置
 spring:
+  # 数据源配置
   datasource:
     type: com.alibaba.druid.pool.DruidDataSource
     driverClassName: com.mysql.cj.jdbc.Driver
     druid:
-      # 主库数据源
       master:
         url: jdbc:mysql://123.249.98.26:3306/cbf_backend_framework?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=true&serverTimezone=GMT%2B8
         username: root
-        password: ENC(Q0bikiSGrHr0sBLiApZ7Ag==)
-      # 从库数据源
+        password: ENC(Q0bikiSGrHr0sBLiApZ7Ag==)     # 主库加密密码（使用 AES）
+      # 是否启用从库，默认关闭
       slave:
-        # 从数据源开关/默认关闭
         enabled: false
         url:
         username:
         password:
-      # 初始连接数
-      initialSize: 5
-      # 最小连接池数量
-      minIdle: 10
-      # 最大连接池数量
-      maxActive: 20
-      # 配置获取连接等待超时的时间
-      maxWait: 60000
-      # 配置连接超时时间
-      connectTimeout: 30000
-      # 配置网络超时时间
-      socketTimeout: 60000
-      # 配置间隔多久才进行一次检测，检测需要关闭的空闲连接，单位是毫秒
-      timeBetweenEvictionRunsMillis: 60000
-      # 配置一个连接在池中最小生存的时间，单位是毫秒
-      minEvictableIdleTimeMillis: 300000
-      # 配置一个连接在池中最大生存的时间，单位是毫秒
-      maxEvictableIdleTimeMillis: 900000
+      initialSize: 5                                # 初始连接数
+      minIdle: 10                                   # 最小空闲连接数
+      maxActive: 20                                 # 最大连接数
+      maxWait: 60000                                # 获取连接最大等待时间（毫秒）
+      connectTimeout: 30000                         # 建立连接超时时间（毫秒）
+      socketTimeout: 60000                          # 读取超时时间（毫秒）
+      timeBetweenEvictionRunsMillis: 60000          # 检测空闲连接间隔（毫秒）
+      minEvictableIdleTimeMillis: 300000            # 连接最小空闲时间（毫秒）
+      maxEvictableIdleTimeMillis: 900000            # 连接最大空闲时间（毫秒）
       webStatFilter:
-        enabled: true
+        enabled: true                               # 开启 Web 监控过滤器，监控接口请求时间
       statViewServlet:
-        enabled: true
-        # 设置白名单，不填则允许所有访问
-        allow:
-        url-pattern: /druid/*
-        # 控制台管理用户名和密码
-        login-username: cbfAdmin
-        login-password: 123456
+        enabled: true                               # 启用 Druid 控制台
+        allow:                                      # 白名单，空表示允许所有
+        url-pattern: /druid/*                       # 控制台访问路径
+        login-username: cbfAdmin                    # 控制台用户名
+        login-password: 123456                      # 控制台密码
       filter:
         stat:
-          enabled: true
-          # 慢SQL记录
-          log-slow-sql: true
-          slow-sql-millis: 1000
-          merge-sql: true
+          enabled: true                             # 启用 SQL 监控
+          log-slow-sql: true                        # 记录慢 SQL
+          slow-sql-millis: 1000                     # 慢 SQL 阈值（毫秒）
+          merge-sql: true                           # 合并 SQL 统计
         wall:
           config:
-            multi-statement-allow: true
+            multi-statement-allow: true             # 允许多条 SQL 执行

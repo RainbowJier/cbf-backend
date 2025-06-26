@@ -1,17 +1,15 @@
 package com.cbf.framework.security.filter;
 
 import com.cbf.common.core.domain.model.LoginUser;
-import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.framework.web.service.TokenService;
-import org.apache.poi.ss.formula.functions.T;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
 
+import javax.annotation.Resource;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
@@ -25,14 +23,15 @@ import java.io.IOException;
  */
 @Component
 public class JwtAuthenticationTokenFilter extends OncePerRequestFilter {
-    @Autowired
+
+    @Resource
     private TokenService tokenService;
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        // 根据token获取登录用户的信息
+        // Verify token is legal or not and get user info.
         LoginUser loginUser = tokenService.getLoginUser(request);
 
         if (StringUtils.isNotNull(loginUser)) {
