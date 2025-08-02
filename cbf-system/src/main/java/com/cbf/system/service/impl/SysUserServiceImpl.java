@@ -1,8 +1,8 @@
 package com.cbf.system.service.impl;
 
 import com.cbf.common.constant.UserConstants;
-import com.cbf.common.core.domain.entity.SysRole;
-import com.cbf.common.core.domain.entity.SysUser;
+import com.cbf.common.entity.SysRole;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;

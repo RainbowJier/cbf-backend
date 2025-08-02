@@ -2,9 +2,9 @@ package com.cbf.framework.aspectj;
 
 import com.alibaba.fastjson2.JSON;
 import com.cbf.common.annotation.Log;
-import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.domain.model.LoginUser;
 import com.cbf.common.core.text.Convert;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.enums.BusinessStatus;
 import com.cbf.common.enums.HttpMethod;
 import com.cbf.common.filter.PropertyPreExcludeFilter;

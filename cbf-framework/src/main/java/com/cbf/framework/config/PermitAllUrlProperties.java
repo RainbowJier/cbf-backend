@@ -1,4 +1,4 @@
-package com.cbf.framework.config.properties;
+package com.cbf.framework.config;
 
 import com.cbf.common.annotation.Anonymous;
 import org.apache.commons.lang3.RegExUtils;

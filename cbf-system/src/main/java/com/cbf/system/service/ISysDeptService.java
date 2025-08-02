@@ -1,7 +1,7 @@
 package com.cbf.system.service;
 
 import com.cbf.common.core.domain.TreeSelect;
-import com.cbf.common.core.domain.entity.SysDept;
+import com.cbf.common.entity.SysDept;
 
 import java.util.List;
 

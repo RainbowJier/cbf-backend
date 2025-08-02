@@ -1,8 +1,8 @@
 package com.cbf.common.core.domain;
 
 import com.cbf.common.constant.UserConstants;
-import com.cbf.common.core.domain.entity.SysDept;
-import com.cbf.common.core.domain.entity.SysMenu;
+import com.cbf.common.entity.SysDept;
+import com.cbf.common.entity.SysMenu;
 import com.cbf.common.utils.StringUtils;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import lombok.AllArgsConstructor;

@@ -30,11 +30,40 @@ import java.util.List;
 @Slf4j
 @RestController
 @RequestMapping("/common")
-public class CommonController {
+public class FileController {
 
-    private static final String FILE_DELIMETER = ",";
     @Resource
     private ServerConfig serverConfig;
+
+    private static final String FILE_DELIMETER = ",";
+
+    /**
+     * 通用上传请求（单个）
+     */
+    @PostMapping("/upload")
+    public AjaxResult uploadFile(MultipartFile file) {
+        try {
+            // 上传文件路径
+            String filePath = CBFConfig.getUploadPath();
+
+            // 上传并返回新文件名称
+            String fileName = FileUploadUtils.upload(filePath, file);
+
+            // 保存到sys_file
+
+
+            //
+            String url = serverConfig.getUrl() + fileName;
+            AjaxResult ajax = AjaxResult.success();
+            ajax.put("url", url);
+            ajax.put("fileName", fileName);
+            ajax.put("newFileName", FileUtils.getName(fileName));
+            ajax.put("originalFilename", file.getOriginalFilename());
+            return ajax;
+        } catch (Exception e) {
+            return AjaxResult.error(e.getMessage());
+        }
+    }
 
     /**
      * 通用下载请求
@@ -62,27 +91,7 @@ public class CommonController {
         }
     }
 
-    /**
-     * 通用上传请求（单个）
-     */
-    @PostMapping("/upload")
-    public AjaxResult uploadFile(MultipartFile file) {
-        try {
-            // 上传文件路径
-            String filePath = CBFConfig.getUploadPath();
-            // 上传并返回新文件名称
-            String fileName = FileUploadUtils.upload(filePath, file);
-            String url = serverConfig.getUrl() + fileName;
-            AjaxResult ajax = AjaxResult.success();
-            ajax.put("url", url);
-            ajax.put("fileName", fileName);
-            ajax.put("newFileName", FileUtils.getName(fileName));
-            ajax.put("originalFilename", file.getOriginalFilename());
-            return ajax;
-        } catch (Exception e) {
-            return AjaxResult.error(e.getMessage());
-        }
-    }
+
 
     /**
      * 通用上传请求（多个）

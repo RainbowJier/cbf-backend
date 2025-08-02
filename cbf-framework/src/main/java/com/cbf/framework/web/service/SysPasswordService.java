@@ -1,8 +1,8 @@
 package com.cbf.framework.web.service;
 
 import com.cbf.common.constant.CacheConstants;
-import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.redis.RedisCache;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.exception.user.UserPasswordNotMatchException;
 import com.cbf.common.exception.user.UserPasswordRetryLimitExceedException;
 import com.cbf.common.utils.SecurityUtils;

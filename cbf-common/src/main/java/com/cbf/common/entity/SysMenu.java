@@ -1,4 +1,4 @@
-package com.cbf.common.core.domain.entity;
+package com.cbf.common.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

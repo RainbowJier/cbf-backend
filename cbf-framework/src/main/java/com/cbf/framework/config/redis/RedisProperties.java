@@ -1,4 +1,4 @@
-package com.cbf.framework.config.properties;
+package com.cbf.framework.config.redis;
 
 
 import com.cbf.common.utils.sign.Aes;
@@ -11,7 +11,6 @@ import org.springframework.data.redis.connection.RedisStandaloneConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceClientConfiguration;
 import org.springframework.data.redis.connection.lettuce.LettuceConnectionFactory;
 import org.springframework.data.redis.connection.lettuce.LettucePoolingClientConfiguration;
-import org.springframework.util.StringUtils;
 
 import java.time.Duration;
 

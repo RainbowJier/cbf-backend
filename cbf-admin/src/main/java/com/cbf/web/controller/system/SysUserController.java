@@ -3,12 +3,11 @@ package com.cbf.web.controller.system;
 import com.cbf.common.annotation.Log;
 import com.cbf.common.core.controller.BaseController;
 import com.cbf.common.core.domain.AjaxResult;
-import com.cbf.common.core.domain.entity.SysDept;
-import com.cbf.common.core.domain.entity.SysRole;
-import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.page.TableDataInfo;
+import com.cbf.common.entity.SysDept;
+import com.cbf.common.entity.SysRole;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.enums.BusinessType;
-import com.cbf.common.utils.PageUtils;
 import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.poi.ExcelUtil;
@@ -53,7 +52,7 @@ public class SysUserController extends BaseController {
     @PreAuthorize("@ss.hasPermi('system:user:list')")
     @GetMapping("/list")
     public TableDataInfo list(SysUser user) {
-        PageUtils.startPage();
+        startPage();
         List<SysUser> list = userService.selectUserList(user);
         return getDataTable(list);
     }
@@ -63,7 +62,7 @@ public class SysUserController extends BaseController {
     @PostMapping("/export")
     public void export(HttpServletResponse response, SysUser user) {
         List<SysUser> list = userService.selectUserList(user);
-        ExcelUtil<SysUser> util = new ExcelUtil<SysUser>(SysUser.class);
+        ExcelUtil<SysUser> util = new ExcelUtil<>(SysUser.class);
         util.exportExcel(response, list, "用户数据");
     }
 

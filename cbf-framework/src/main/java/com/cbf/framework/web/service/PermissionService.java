@@ -1,8 +1,8 @@
 package com.cbf.framework.web.service;
 
 import com.cbf.common.constant.Constants;
-import com.cbf.common.core.domain.entity.SysRole;
 import com.cbf.common.core.domain.model.LoginUser;
+import com.cbf.common.entity.SysRole;
 import com.cbf.common.utils.SecurityUtils;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.framework.security.context.PermissionContextHolder;

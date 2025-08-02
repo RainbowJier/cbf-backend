@@ -2,6 +2,7 @@ package com.cbf.common.config;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.stereotype.Component;
@@ -20,10 +21,12 @@ public class CBFConfig {
     /**
      * 上传路径
      */
+    @Getter
     private static String profile;
     /**
      * 获取地址开关
      */
+    @Getter
     private static boolean addressEnabled;
     /**
      * 项目名称
@@ -41,15 +44,6 @@ public class CBFConfig {
      * 验证码类型
      */
     private String captchaType;
-
-
-    public static String getProfile() {
-        return profile;
-    }
-
-    public static boolean isAddressEnabled() {
-        return addressEnabled;
-    }
 
     /**
      * 获取导入上传路径

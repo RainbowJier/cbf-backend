@@ -1,7 +1,7 @@
 package com.cbf.framework.web.service;
 
-import com.cbf.common.core.domain.entity.SysUser;
 import com.cbf.common.core.domain.model.LoginUser;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.enums.UserStatus;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.utils.MessageUtils;

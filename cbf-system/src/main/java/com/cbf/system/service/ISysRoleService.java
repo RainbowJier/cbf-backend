@@ -1,6 +1,6 @@
 package com.cbf.system.service;
 
-import com.cbf.common.core.domain.entity.SysRole;
+import com.cbf.common.entity.SysRole;
 import com.cbf.system.domain.SysUserRole;
 
 import java.util.List;

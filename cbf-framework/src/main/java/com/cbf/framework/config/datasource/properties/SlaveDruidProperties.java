@@ -1,4 +1,4 @@
-package com.cbf.framework.config.properties.datasource;
+package com.cbf.framework.config.datasource.properties;
 
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
@@ -9,6 +9,7 @@ import org.springframework.context.annotation.Configuration;
  * @Date: 2025/6/20 15:23
  */
 @Configuration
-@ConfigurationProperties("spring.datasource.druid.master")
-public class MasterDruidProperties extends BaseDruidProperties {
+@ConfigurationProperties("spring.datasource.druid.slave")
+public class SlaveDruidProperties extends BaseDruidProperties {
 }
+

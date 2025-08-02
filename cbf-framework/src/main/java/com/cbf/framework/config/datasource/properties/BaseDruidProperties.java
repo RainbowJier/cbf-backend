@@ -1,4 +1,4 @@
-package com.cbf.framework.config.properties.datasource;
+package com.cbf.framework.config.datasource.properties;
 
 
 import com.alibaba.druid.pool.DruidDataSource;

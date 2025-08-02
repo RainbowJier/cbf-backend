@@ -1,6 +1,6 @@
 package com.cbf.system.mapper;
 
-import com.cbf.common.core.domain.entity.SysDictType;
+import com.cbf.common.entity.SysDictType;
 
 import java.util.List;
 

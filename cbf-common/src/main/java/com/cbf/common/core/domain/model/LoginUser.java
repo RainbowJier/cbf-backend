@@ -1,7 +1,7 @@
 package com.cbf.common.core.domain.model;
 
 import com.alibaba.fastjson2.annotation.JSONField;
-import com.cbf.common.core.domain.entity.SysUser;
+import com.cbf.common.entity.SysUser;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

@@ -1,6 +1,6 @@
 package com.cbf.system.mapper;
 
-import com.cbf.common.core.domain.entity.SysMenu;
+import com.cbf.common.entity.SysMenu;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

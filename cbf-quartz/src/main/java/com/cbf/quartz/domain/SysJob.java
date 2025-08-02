@@ -11,9 +11,10 @@ import com.cbf.common.core.domain.BaseEntity;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.quartz.util.CronUtils;
 import com.fasterxml.jackson.annotation.JsonFormat;
-import lombok.*;
-import org.apache.commons.lang3.builder.ToStringBuilder;
-import org.apache.commons.lang3.builder.ToStringStyle;
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;

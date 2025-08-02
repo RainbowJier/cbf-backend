@@ -2,8 +2,8 @@ package com.cbf.common.utils;
 
 import com.cbf.common.constant.Constants;
 import com.cbf.common.constant.HttpStatus;
-import com.cbf.common.core.domain.entity.SysRole;
 import com.cbf.common.core.domain.model.LoginUser;
+import com.cbf.common.entity.SysRole;
 import com.cbf.common.exception.ServiceException;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;

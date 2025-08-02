@@ -1,8 +1,8 @@
 package com.cbf.system.service.impl;
 
 import com.cbf.common.constant.UserConstants;
-import com.cbf.common.core.domain.entity.SysDictData;
-import com.cbf.common.core.domain.entity.SysDictType;
+import com.cbf.common.entity.SysDictData;
+import com.cbf.common.entity.SysDictType;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.utils.DictUtils;
 import com.cbf.common.utils.StringUtils;

@@ -1,8 +1,8 @@
 package com.cbf.framework.web.service;
 
 import com.cbf.common.constant.UserConstants;
-import com.cbf.common.core.domain.entity.SysRole;
-import com.cbf.common.core.domain.entity.SysUser;
+import com.cbf.common.entity.SysRole;
+import com.cbf.common.entity.SysUser;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.system.service.ISysMenuService;
 import com.cbf.system.service.ISysRoleService;

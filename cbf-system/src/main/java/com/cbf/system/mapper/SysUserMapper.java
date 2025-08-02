@@ -2,7 +2,7 @@ package com.cbf.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.cbf.common.annotation.DataScope;
-import com.cbf.common.core.domain.entity.SysUser;
+import com.cbf.common.entity.SysUser;
 import org.apache.ibatis.annotations.Param;
 
 import java.util.List;

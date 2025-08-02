@@ -1,7 +1,7 @@
 package com.cbf.system.service;
 
 import com.cbf.common.core.domain.TreeSelect;
-import com.cbf.common.core.domain.entity.SysMenu;
+import com.cbf.common.entity.SysMenu;
 import com.cbf.common.vo.RouterVo;
 
 import java.util.List;

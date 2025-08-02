@@ -1,6 +1,6 @@
 package com.cbf.system.service;
 
-import com.cbf.common.core.domain.entity.SysUser;
+import com.cbf.common.entity.SysUser;
 
 import java.util.List;
 

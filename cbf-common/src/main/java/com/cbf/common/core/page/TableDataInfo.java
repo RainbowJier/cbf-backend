@@ -1,5 +1,7 @@
 package com.cbf.common.core.page;
 
+import com.cbf.common.constant.HttpStatus;
+import com.github.pagehelper.PageInfo;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -49,4 +51,15 @@ public class TableDataInfo implements Serializable {
         this.rows = list;
         this.total = total;
     }
+
+    public static TableDataInfo success(List<?> list) {
+        TableDataInfo rspData = new TableDataInfo();
+        rspData.setCode(HttpStatus.SUCCESS);
+        rspData.setMsg("查询成功");
+        rspData.setRows(list);
+        rspData.setTotal(new PageInfo<>(list).getTotal());
+        return rspData;
+    }
+
+
 }

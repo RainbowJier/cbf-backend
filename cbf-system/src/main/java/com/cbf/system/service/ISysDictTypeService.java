@@ -1,7 +1,7 @@
 package com.cbf.system.service;
 
-import com.cbf.common.core.domain.entity.SysDictData;
-import com.cbf.common.core.domain.entity.SysDictType;
+import com.cbf.common.entity.SysDictData;
+import com.cbf.common.entity.SysDictType;
 
 import java.util.List;
 

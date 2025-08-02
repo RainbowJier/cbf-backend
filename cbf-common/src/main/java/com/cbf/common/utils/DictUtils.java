@@ -2,8 +2,8 @@ package com.cbf.common.utils;
 
 import com.alibaba.fastjson2.JSONArray;
 import com.cbf.common.constant.CacheConstants;
-import com.cbf.common.core.domain.entity.SysDictData;
 import com.cbf.common.core.redis.RedisCache;
+import com.cbf.common.entity.SysDictData;
 import com.cbf.common.utils.spring.SpringUtils;
 
 import java.util.Collection;

@@ -1,6 +1,6 @@
 package com.cbf.system.service.impl;
 
-import com.cbf.common.core.domain.entity.SysDictData;
+import com.cbf.common.entity.SysDictData;
 import com.cbf.common.utils.DictUtils;
 import com.cbf.system.mapper.SysDictDataMapper;
 import com.cbf.system.service.ISysDictDataService;

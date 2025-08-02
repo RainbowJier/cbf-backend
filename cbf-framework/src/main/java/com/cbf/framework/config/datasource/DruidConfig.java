@@ -1,11 +1,11 @@
-package com.cbf.framework.config;
+package com.cbf.framework.config.datasource;
 
 import com.alibaba.druid.spring.boot.autoconfigure.properties.DruidStatProperties;
 import com.alibaba.druid.util.Utils;
 import com.cbf.common.enums.DataSourceType;
 import com.cbf.common.utils.spring.SpringUtils;
-import com.cbf.framework.config.properties.datasource.MasterDruidProperties;
-import com.cbf.framework.config.properties.datasource.SlaveDruidProperties;
+import com.cbf.framework.config.datasource.properties.MasterDruidProperties;
+import com.cbf.framework.config.datasource.properties.SlaveDruidProperties;
 import com.cbf.framework.datasource.DynamicDataSource;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnProperty;

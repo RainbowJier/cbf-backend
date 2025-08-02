@@ -1,6 +1,5 @@
 package com.cbf.framework.config;
 
-import com.cbf.framework.config.properties.PermitAllUrlProperties;
 import com.cbf.framework.security.filter.JwtAuthenticationTokenFilter;
 import com.cbf.framework.security.handle.AuthenticationEntryPointImpl;
 import com.cbf.framework.security.handle.LogoutSuccessHandlerImpl;

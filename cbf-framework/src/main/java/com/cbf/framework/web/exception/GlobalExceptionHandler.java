@@ -3,7 +3,6 @@ package com.cbf.framework.web.exception;
 import com.cbf.common.constant.HttpStatus;
 import com.cbf.common.core.domain.AjaxResult;
 import com.cbf.common.core.text.Convert;
-import com.cbf.common.exception.DemoModeException;
 import com.cbf.common.exception.ServiceException;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.common.utils.html.EscapeUtil;
@@ -90,7 +89,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(RuntimeException.class)
     public AjaxResult handleRuntimeException(RuntimeException e, HttpServletRequest request) {
         String requestURI = request.getRequestURI();
-        log.error("请求地址'{}',发生未知异常.", requestURI, e);
+        log.error("请求地址'{}',发生未知异常.", requestURI, e.getMessage());
         return AjaxResult.error(e.getMessage());
     }
 
@@ -124,11 +123,4 @@ public class GlobalExceptionHandler {
         return AjaxResult.error(message);
     }
 
-    /**
-     * 演示模式异常
-     */
-    @ExceptionHandler(DemoModeException.class)
-    public AjaxResult handleDemoModeException(DemoModeException e) {
-        return AjaxResult.error("演示模式，不允许操作");
-    }
 }

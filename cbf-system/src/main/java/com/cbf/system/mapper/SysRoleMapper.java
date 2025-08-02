@@ -1,7 +1,7 @@
 package com.cbf.system.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.cbf.common.core.domain.entity.SysRole;
+import com.cbf.common.entity.SysRole;
 
 import java.util.List;
 

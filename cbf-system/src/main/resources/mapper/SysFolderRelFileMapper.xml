@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.cbf.system.mapper.SysFolderRelFileMapper">
+
+    <resultMap id="BaseResultMap" type="com.cbf.common.entity.SysFolderRelFile">
+        <result property="folderId" column="FOLDER_ID"/>
+        <result property="fileId" column="FILE_ID"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        FOLDER_ID,FILE_ID
+    </sql>
+</mapper>

@@ -4,7 +4,7 @@ import com.cbf.common.annotation.Log;
 import com.cbf.common.constant.UserConstants;
 import com.cbf.common.core.controller.BaseController;
 import com.cbf.common.core.domain.AjaxResult;
-import com.cbf.common.core.domain.entity.SysDept;
+import com.cbf.common.entity.SysDept;
 import com.cbf.common.enums.BusinessType;
 import com.cbf.common.utils.StringUtils;
 import com.cbf.system.service.ISysDeptService;
